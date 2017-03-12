@@ -9,7 +9,16 @@ def index():
     """
     return render_template('landing.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/', methods=['POST','GET'])
 def search():
-    print request.form('cname')
-    return render_template('landing.html')
+    print request.form['cname']
+    if request.method == 'POST':
+        return redirect(url_for('index'))
+    return "what"
+
+@app.route('/', methods=['POST'])
+def my_form_post():
+
+    text = request.form['text']
+    processed_text = text.upper()
+    return processed_text

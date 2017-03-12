@@ -33,18 +33,23 @@
 
 
   <div class="container row center" style="margin: auto;">
-    <form class="col s12 center" action="/search" method="post">
+    <form class="col s12 center" action="/" method="POST">
       <div class="row">
         <div class="input-field col s6">
-          <input id="cname" type="text" class="validate">
+          <input id="cname" type="text" name="cname" class="validate">
           <label for="cname">Course Name</label>
         </div>
       </div>
       <div class="row center">
-        <a type="submit" id="search-button" class="btn-large waves-effect waves-light orange">Search</a>
+        <input type="submit" id="search-button" value="search" name="courseSearch" class="btn-large waves-effect waves-light orange">
       </div>
     </form>
   </div>
+
+  <form action="/" method="POST">
+        <input type="text" name="text">
+        <input type="submit" name="my-form" value="Send">
+  </form>
 
 
   <footer class="page-footer orange">
