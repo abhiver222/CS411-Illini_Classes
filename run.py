@@ -1,4 +1,9 @@
-from app import app
-import os
-app.secret_key = os.urandom(12)
-app.run(debug=True)
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+
+if __name__ == "__main__":
+    app.run()
