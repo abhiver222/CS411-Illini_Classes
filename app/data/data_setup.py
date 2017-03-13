@@ -52,7 +52,7 @@ Insert all departments' name to the database
 def insert_departments(query):
 	depts = get_all_departments()
 	for dept in depts:
-		# print dept['$'] 	# For testing purposes
+		print dept['$'] 	# For testing purposes
 		query.insert_departments(dept['$'])
 
 '''
@@ -60,6 +60,7 @@ Insert all courses' info to the database
 '''
 def insert_courses(query):
 	depts = get_all_departments()
+	# print depts
 	for dept in depts:
 		dept_id = dept['@id']			# e.g. CS
 		dept_url = dept['@href']		# API URL for a particular dept.
@@ -73,9 +74,11 @@ def insert_courses(query):
 		for course in courses:
 			course_url = course['@href']						# Get course API URL
 			course = get_a_course(course_url)					# Get a course in JSON format
+
 			course_sem_url = course['@href']					# Get course of the current semester
 
 			course_sem = get_a_course(course_sem_url)			# Get this semester's course info
+			print course_sem
 			crn = course_sem['parents']['term']['@id']			# Get its crn
 			course_id = course['@id']							# Get course id, e.g. CS 411
 			course_name = course['label']['$']					# Get course name, e.g. Databases
@@ -85,7 +88,7 @@ def insert_courses(query):
 			course_description = course['description']['$']
 
 			# Insert the current course to the database
-			query.insert_courses(crn, course_description, "", 0, 0, 0, dept_id)
+			query.insert_courses(crn, course_description, course_id + " " + course_name, " ", 0, 0, 0, 0)
 
 			# For testing purposes
 			# print course_id
@@ -99,7 +102,8 @@ Setup departments and courses info
 def main():
 	query = Query()
 
-	insert_departments(query)
+	# insert_departments(query)
+	# insert_departments()
 	insert_courses(query)
 
 if __name__ == "__main__":

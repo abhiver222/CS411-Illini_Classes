@@ -3,7 +3,7 @@ import sqlite3
 sqlFile = "class.db"
 #table1 = "commentsTable"
 #table2 = "repliesTable"
-
+ews
 conn = sqlite3.connect(sqlFile)
 cur = conn.cursor()
 
@@ -69,7 +69,6 @@ cur.execute("""Create table Courses(
 	AvgToughness numeric,
 	AvgRating numeric,
 	AvgWkload numeric,
-
 	DeptID INTEGER
 
 )""")
