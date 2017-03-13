@@ -60,3 +60,19 @@ class Query:
         return self.cur.fetchall()
 
 
+    # Queries to setup departments and courses
+    def insert_departments(self, dept):
+
+        query = """INSERT INTO Departments (Name)
+                        VALUES (\"{dept_name}\")""".format(Name=dept_name)
+        self.cur.execute(query)
+
+    def insert_courses(self, crn, desc, name, comb_reviews, avg_toughness, avg_rating, avg_workload, dept_id):
+
+        query = """INSERT INTO Courses (CRN, Description, Name, CombReviews, AvgToughness, AvgRating, AvgWkload, DeptID)
+                        VALUES ({crn}, \"{desc}\", \"{name}\", \"{comb_reviews}\", {avg_toughness}, {avg_rating}, {avg_workload}, {dept_id})""".format(
+                            CRN=crn, Description=desc, Name=name, CombReviews=comb_reviews, AvgToughness=avg_toughness, AvgRating=avg_rating,
+                            AvgWkload=avg_workload, DeptID=dept_id
+                        )
+
+        self.cur.execute(query)

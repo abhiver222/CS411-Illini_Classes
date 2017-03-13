@@ -3,6 +3,7 @@ import requests
 from xmljson import badgerfish as bf
 from xml.etree.ElementTree import fromstring
 from json import dumps
+from query import Query
 
 '''
 api_response is the raw data in XML format
@@ -46,13 +47,60 @@ def get_a_course(course_url):
 	return course
 
 '''
-For testing locally
+Insert all departments' name to the database
+'''
+def insert_departments(query):
+	depts = get_all_departments()
+	for dept in depts:
+		# print dept['$'] 	# For testing purposes
+		query.insert_departments(dept['$'])
+
+'''
+Insert all courses' info to the database
+'''
+def insert_courses(query):
+	depts = get_all_departments()
+	for dept in depts:
+		dept_id = dept['@id']			# e.g. CS
+		dept_url = dept['@href']		# API URL for a particular dept.
+
+		# Departments with little information will be passed
+		if (dept_id == 'BIOL' or dept_id == 'ENT'
+			or dept_id == 'PBIO' or dept_id == 'WGGP'):
+			continue
+
+		courses = get_all_courses(dept_url)
+		for course in courses:
+			course_url = course['@href']						# Get course API URL
+			course = get_a_course(course_url)					# Get a course in JSON format
+			course_sem_url = course['@href']					# Get course of the current semester
+
+			course_sem = get_a_course(course_sem_url)			# Get this semester's course info
+			crn = course_sem['parents']['term']['@id']			# Get its crn
+			course_id = course['@id']							# Get course id, e.g. CS 411
+			course_name = course['label']['$']					# Get course name, e.g. Databases
+
+			if 'description' not in course:						# Some of the courses don't have descriptions
+				continue
+			course_description = course['description']['$']
+
+			# Insert the current course to the database
+			query.insert_courses(crn, course_description, "", 0, 0, 0, dept_id)
+
+			# For testing purposes
+			# print course_id
+			# print crn
+			# print course_name
+			# print course_description
+
+'''
+Setup departments and courses info
 '''
 def main():
-    # Print all departments
-    depts = get_all_departments()
-    for dept in depts:
-        print dept['$']
+	query = Query()
+
+	insert_departments(query)
+	insert_courses(query)
 
 if __name__ == "__main__":
     # execute only if run as a script
