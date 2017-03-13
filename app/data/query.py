@@ -52,10 +52,21 @@ class Query:
         return self.cur.fetchall()
 
     def getComments(self,crn):
-
         query = """SELECT * FROM Reviews WHERE CourseCRN = {crn}""".format(crn=crn)
         self.cur.execute(query)
-
         return self.cur.fetchall()
+    # delete Reviews
+    def deleteReview(self, reviewID):
+        query = """DELETE FROM Reviews where ID = '{rid}'""".format(rid = reviewID)
+        self.cur.execute(query)
+    # delete Post
+    def deletePost(self, postID):
+        query = """DELETE FROM Posts where ID = '{pid}'""".format(pid = postID)
+        self.cur.execute(query)
+    # deleteComment
+    def deleteComment(self, commentID):
+        query = """DELETE FROM Comments where ID = '{cid}'""".format(cid = commentID)
+        self.cur.execute(query)
+
 
 
