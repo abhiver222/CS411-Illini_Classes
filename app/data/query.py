@@ -37,6 +37,7 @@ class Query:
 
     # selection queries
 
+    # course information queries
     def getCourseInfoByName(self,courseName):
 
         query = """SELECT * FROM Courses WHERE Name = \"{name}\"""".format(name=courseName)
@@ -51,7 +52,7 @@ class Query:
 
         return self.cur.fetchall()
 
-    def getComments(self,crn):
+    def getReviews(self,crn):
         query = """SELECT * FROM Reviews WHERE CourseCRN = {crn}""".format(crn=crn)
         self.cur.execute(query)
         return self.cur.fetchall()

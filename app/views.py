@@ -7,7 +7,7 @@ def index():
     """
     route renders the landing page
     """
-    return render_template('landing.html')
+    return render_template('course.html')
 
 @app.route('/', methods=['POST','GET'])
 def search():
