@@ -29,4 +29,33 @@ class Query:
 
 
     # insert new user
-    def ins_new_user
+    def ins_new_user(self, email, passw, name):
+
+        query = """INSERT INTO Users (Email, Password, Name)
+                    VALUES (\"{email}\", \"{passw}\", \"{name}\")""".format(email=email,passw=passw,name=name)
+        self.cur.execute(query)
+
+    # selection queries
+
+    def getCourseInfoByName(self,courseName):
+
+        query = """SELECT * FROM Courses WHERE Name = \"{name}\"""".format(name=courseName)
+        self.cur.execute(query)
+
+        return self.cur.fetchall()
+
+    def getCourseInfoByName(self,crn):
+
+        query = """SELECT * FROM Courses WHERE CRN = \"{crn}\"""".format(crn=crn)
+        self.cur.execute(query)
+
+        return self.cur.fetchall()
+
+    def getComments(self,crn):
+
+        query = """SELECT * FROM Reviews WHERE CourseCRN = {crn}""".format(crn=crn)
+        self.cur.execute(query)
+
+        return self.cur.fetchall()
+
+
