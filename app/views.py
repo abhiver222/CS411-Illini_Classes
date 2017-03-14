@@ -7,13 +7,14 @@ def index():
     """
     route renders the landing page
     """
-    return render_template('course.html')
+    return render_template('landing.html')
 
 @app.route('/', methods=['POST','GET'])
 def search():
     print request.form['cname']
     if request.method == 'POST':
-        return redirect(url_for('index'))
+        return render_template('course.html')
+        # return redirect(url_for('index'))
     return "what"
 
 @app.route('/', methods=['POST'])
