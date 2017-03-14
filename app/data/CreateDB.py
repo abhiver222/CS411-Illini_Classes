@@ -3,33 +3,34 @@ import sqlite3
 sqlFile = "class.db"
 #table1 = "commentsTable"
 #table2 = "repliesTable"
-ews
+#ews
 conn = sqlite3.connect(sqlFile)
 cur = conn.cursor()
 
-cur.execute("""Create table Comments( ID INTEGER PRIMARY KEY AUTOINCREMENT,
+'''cur.execute("""Create table Comments( ID INTEGER PRIMARY KEY AUTOINCREMENT,
 	UserEmail  TEXT,
 	Text TEXT,
-	Modified TEXT)""")
+	Modified TEXT)""")'''
 
+cur.execute('''drop table Posts''')
 cur.execute("""Create table Posts(
 	ID INTEGER PRIMARY KEY AUTOINCREMENT,
 	UserEmail  TEXT,
 	Text TEXT,
-	CourseCRN INTEGER,
+	CourseID INTEGER,
 	Modified TEXT
 )
 """)
-
+cur.execute('''drop table Teaches''')
 cur.execute("""Create table Teaches(
 	ID INTEGER PRIMARY KEY AUTOINCREMENT,
 	InstructorName  TEXT,
 	Semester TEXT,
-	CourseCRN INTEGER
+	CourseID INTEGER
 
 )"""
 )
-
+'''
 cur.execute("""CREATE TABLE Instructors(
 ID INTEGER PRIMARY KEY AUTOINCREMENT,
 Instructor_Name TEXT
@@ -48,8 +49,8 @@ InstructorID INTEGER,
 Rating INTEGER
 )
 """)
-
-
+'''
+cur.execute('''drop table Reviews''')
 cur.execute("""Create table Reviews(
     ID INTEGER PRIMARY KEY AUTOINCREMENT ,
 	UserEmail  TEXT,
@@ -57,12 +58,13 @@ cur.execute("""Create table Reviews(
 	Workload INTEGER,
 	Rating INTEGER,
 	Text varchar(750),
-CourseCRN INTEGER
+CourseID INTEGER
 )
 """)
-
+cur.execute('''drop table Courses''')
 cur.execute("""Create table Courses(
-    CRN INT PRIMARY KEY  ,
+    CourseID INTEGER PRIMARY KEY AUTOINCREMENT ,
+    CourseCRN TEXT  ,
 	Description  TEXT,
 	Name TEXT,
 	CombReviews TEXT,
@@ -73,15 +75,14 @@ cur.execute("""Create table Courses(
 
 )""")
 
-
+'''
 cur.execute("""Create table Users(
 
 	Email TEXT PRIMARY KEY ,
 	Password TEXT,
 	Name TEXT
 
-)""")
-
+)""")'''
 
 
 
