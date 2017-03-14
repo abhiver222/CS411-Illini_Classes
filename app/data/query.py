@@ -30,7 +30,14 @@ class Query:
         self.cur.execute(query)
         self.conn.commit()
 
-
+    def ins_review_replWrd(self,UserEmail, Toughness, Workload, Rating, Text, CourseID,Forbidden,Replword):
+        query = """INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
+                             VALUES (\"{email}\", {tough}, {work}, {rating}, REPLACE(\" {text}\", \"{forbidden}\", \"{replword}\"), {crn})""".format(
+            email=UserEmail, tough=Toughness,
+            work=Workload, rating=Rating,
+            text=Text, crn=CourseID, forbidden=Forbidden,Replword=Replword)
+        self.cur.execute(query)
+        self.conn.commit()
     # insert new user
     def ins_new_user(self, email, passw, name):
 
