@@ -10,9 +10,9 @@ cur = conn.cursor()
 '''cur.execute("""Create table Comments( ID INTEGER PRIMARY KEY AUTOINCREMENT,
 	UserEmail  TEXT,
 	Text TEXT,
-	Modified TEXT)""")'''
+	Modified TEXT)""")
 
-cur.execute('''drop table Posts''')
+cur.execute("""drop table Posts""")
 cur.execute("""Create table Posts(
 	ID INTEGER PRIMARY KEY AUTOINCREMENT,
 	UserEmail  TEXT,
@@ -21,7 +21,8 @@ cur.execute("""Create table Posts(
 	Modified TEXT
 )
 """)
-cur.execute('''drop table Teaches''')
+
+cur.execute("""drop table Teaches""")
 cur.execute("""Create table Teaches(
 	ID INTEGER PRIMARY KEY AUTOINCREMENT,
 	InstructorName  TEXT,
@@ -31,13 +32,14 @@ cur.execute("""Create table Teaches(
 )"""
 )
 '''
+cur.execute("""drop table Instructors""")
 cur.execute("""CREATE TABLE Instructors(
 ID INTEGER PRIMARY KEY AUTOINCREMENT,
-Instructor_Name TEXT
+Instructor_Name TEXT UNIQUE
 
 )
 """)
-
+'''
 cur.execute("""CREATE TABLE Departments(
 DepartmentID INTEGER PRIMARY KEY AUTOINCREMENT ,
 Name TEXT
@@ -49,8 +51,9 @@ InstructorID INTEGER,
 Rating INTEGER
 )
 """)
-'''
-cur.execute('''drop table Reviews''')
+
+cur.execute("""drop table Reviews""")
+
 cur.execute("""Create table Reviews(
     ID INTEGER PRIMARY KEY AUTOINCREMENT ,
 	UserEmail  TEXT,
@@ -61,7 +64,8 @@ cur.execute("""Create table Reviews(
 CourseID INTEGER
 )
 """)
-cur.execute('''drop table Courses''')
+cur.execute("""drop table Courses""")
+
 cur.execute("""Create table Courses(
     CourseID INTEGER PRIMARY KEY AUTOINCREMENT ,
     CourseCRN TEXT  ,
@@ -75,7 +79,7 @@ cur.execute("""Create table Courses(
 
 )""")
 
-'''
+
 cur.execute("""Create table Users(
 
 	Email TEXT PRIMARY KEY ,
