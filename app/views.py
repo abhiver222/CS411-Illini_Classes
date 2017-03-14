@@ -18,7 +18,6 @@ def search():
 
 @app.route('/', methods=['POST'])
 def my_form_post():
-
     text = request.form['text']
     processed_text = text.upper()
     return processed_text
