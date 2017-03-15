@@ -2,7 +2,7 @@ import sqlite3
 
 class Query:
     def __init__(self):
-        self.conn  = sqlite3.connect("class.db", check_same_thread=False)
+        self.conn  = sqlite3.connect("app/data/class.db", check_same_thread=False)
         self.cur = self.conn.cursor()
 
     # insert rating, post, review
@@ -63,12 +63,12 @@ class Query:
     # course information queries
     def getCourseInfoByName(self,courseName):
 
-        query = """SELECT * FROM Courses WHERE Name = \"{name}\"""".format(name=courseName)
+        query = """SELECT * FROM Courses WHERE Name LIKE \"%{name}%\"""".format(name=courseName)
         self.cur.execute(query)
 
         return self.cur.fetchall()
 
-    def getCourseInfoByName(self,crn):
+    def getCourseInfoByCrn(self,crn):
 
         query = """SELECT * FROM Courses WHERE CRN = \"{crn}\"""".format(crn=crn)
         self.cur.execute(query)
