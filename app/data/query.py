@@ -29,7 +29,7 @@ class Query:
                                                                                                 text=Text,crn=CourseCRN)
         self.cur.execute(query)
         self.conn.commit()
-
+    # insert a new review after filtering out the bad words
     def ins_review_replWrd(self,UserEmail, Toughness, Workload, Rating, Text, CourseID,Forbidden,Replword):
         query = """INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
                              VALUES (\"{email}\", {tough}, {work}, {rating}, REPLACE(\" {text}\", \"{forbidden}\", \"{replword}\"), {crn})""".format(
@@ -38,6 +38,7 @@ class Query:
             text=Text, crn=CourseID, forbidden=Forbidden,Replword=Replword)
         self.cur.execute(query)
         self.conn.commit()
+
     # insert new user
     def ins_new_user(self, email, passw, name):
 
@@ -47,6 +48,17 @@ class Query:
         self.conn.commit()
 
     # selection queries
+
+    def get_stats(self,courseID):
+        #obtain the avgworkload, avgToughness, avgWOrkload for the course based on reviews
+        query="""SELECT AVG(Toughness) AS AvgToughness, AVG(Workload) AS AvgWorkload, AVG(Rating) AS AvgRating
+            FROM Reviews
+            WHERE CourseID=\"{courseid}\"
+            GROUP BY CourseID""".format(courseid=courseID)
+        self.cur.execute(query)
+        return self.cur.fetchall()
+
+
 
     # course information queries
     def getCourseInfoByName(self,courseName):
