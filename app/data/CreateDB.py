@@ -7,7 +7,7 @@ sqlFile = "class.db"
 conn = sqlite3.connect(sqlFile)
 cur = conn.cursor()
 
-'''cur.execute("""Create table Comments( ID INTEGER PRIMARY KEY AUTOINCREMENT,
+cur.execute("""Create table Comments( ID INTEGER PRIMARY KEY AUTOINCREMENT,
 	UserEmail  TEXT,
 	Text TEXT,
 	Modified TEXT)""")
@@ -31,7 +31,7 @@ cur.execute("""Create table Teaches(
 
 )"""
 )
-'''
+
 cur.execute("""drop table Instructors""")
 cur.execute("""CREATE TABLE Instructors(
 ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,7 +39,7 @@ Instructor_Name TEXT UNIQUE
 
 )
 """)
-'''
+
 cur.execute("""CREATE TABLE Departments(
 DepartmentID INTEGER PRIMARY KEY AUTOINCREMENT ,
 Name TEXT
@@ -64,11 +64,11 @@ cur.execute("""Create table Reviews(
 CourseID INTEGER
 )
 """)
+
 cur.execute("""drop table Courses""")
 
 cur.execute("""Create table Courses(
     CourseID INTEGER PRIMARY KEY AUTOINCREMENT ,
-    CourseCRN TEXT  ,
 	Description  TEXT,
 	Name TEXT,
 	CombReviews TEXT,
@@ -86,7 +86,7 @@ cur.execute("""Create table Users(
 	Password TEXT,
 	Name TEXT
 
-)""")'''
+)""")
 
 
 
@@ -113,5 +113,3 @@ print cur.fetchall()'''
 
 conn.commit()
 conn.close()
-
-

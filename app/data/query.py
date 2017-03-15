@@ -2,7 +2,7 @@ import sqlite3
 
 class Query:
     def __init__(self):
-        self.conn  = sqlite3.connect("app/data/class.db", check_same_thread=False)
+        self.conn  = sqlite3.connect("class.db", check_same_thread=False)
         self.cur = self.conn.cursor()
 
     # insert rating, post, review
@@ -110,11 +110,11 @@ class Query:
         self.cur.execute(query)
         self.conn.commit()
 
-    def insert_courses(self, crn, desc, name, comb_reviews, avg_toughness, avg_rating, avg_workload, dept_id):
+    def insert_courses(self, desc, name, comb_reviews, avg_toughness, avg_rating, avg_workload, dept_id):
 
-        query = """INSERT INTO Courses (CRN, Description, Name, CombReviews, AvgToughness, AvgRating, AvgWkload, DeptID)
-                        VALUES ({crn}, \"{desc}\", \"{name}\", \"{comb_reviews}\", {avg_toughness}, {avg_rating}, {avg_workload}, {dept_id})""".format(
-                            crn=crn, desc=desc, name=name, comb_reviews=comb_reviews, avg_toughness=avg_toughness, avg_rating=avg_rating,
+        query = """INSERT INTO Courses (Description, Name, CombReviews, AvgToughness, AvgRating, AvgWkload, DeptID)
+                        VALUES (\"{desc}\", \"{name}\", \"{comb_reviews}\", {avg_toughness}, {avg_rating}, {avg_workload}, {dept_id})""".format(
+                            desc=desc, name=name, comb_reviews=comb_reviews, avg_toughness=avg_toughness, avg_rating=avg_rating,
                             avg_workload=avg_workload, dept_id=dept_id
                         )
         print query
