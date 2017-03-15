@@ -16,8 +16,7 @@ def search():
     print "in search"
     name = request.form['cname']
     query = Query()
-    courses = query.getCourseInfoByName(name)
-    print courses
+    #courses = query.getCourseInfoByName(name)
     if request.method == 'POST':
         return render_template('course.html')
         # return redirect(url_for('index'))
