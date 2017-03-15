@@ -21,7 +21,7 @@ class Query:
         self.cur.execute(query)
         self.conn.commit()
 
-    def ins_review(self,UserEmail, Toughness, Workload, Rating, Text, CourseCRN):
+    def ins_review(self, UserEmail, Toughness, Workload, Rating, Text, CourseCRN):
 
         query = """INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseCRN)
                      VALUES (\"{email}\", {tough}, {work}, {rating}, \"{text}\", {crn})""".format(email=UserEmail,tough=Toughness,
@@ -81,6 +81,17 @@ class Query:
         print query
         self.cur.execute(query)
         return self.cur.fetchall()
+
+    # Update Reviews
+    def updateReview(self, reviewID, UserEmail, Toughness, Workload, Rating, Text, CourseCRN):
+        query = """UPDATE Reviews
+                   SET reviewID=reviewID, UserEmail=UserEmail, Toughness=Toughness,
+                   Workload=Workload, Rating=Rating, Text=Text, CourseCRN=CourseCRN
+                   where ID = '{reviewID}'""".format(reviewID=reviewID, UserEmail=UserEmail, Toughness=Toughness,
+                   Workload=Workload, Rating=Rating, Text=Text, CourseCRN=CourseCRN
+                   )
+        self.cur.execute(query)
+        self.conn.commit()
 
     # delete Reviews
     def deleteReview(self, reviewID):
