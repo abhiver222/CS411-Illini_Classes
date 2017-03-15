@@ -10,12 +10,13 @@
     <div class="container">
       <br><br>
 
-        <h1 class="header center orange-text">Class Name</h1>
+        <h1 class="header center orange-text">{{ course[2] }}</h1>
       <div class="row center">
 
       </div>
 
       <br><br>
+<!--[(22, u'Examination of the logical organization of databases: the entity-relationship model; the hierarchical, network, and relational data models and their languages. Functional dependencies and normal forms. Design, implementation, and optimization of query languages; security and integrity; concurrency control, and distributed database systems. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 225.', u'CS 411 Database Systems', u' ', 0, 0, 0, 0)]-->
 
     </div>
     </div>
@@ -38,26 +39,36 @@
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
               <span class="card-title">Course Information</span>
-              <p> course information like teachers, avg grades marks, etc would come here</p>
+              <p>{{course[1]}}</p>
+                <h5>Avg Toughness : {{course[4]}}</h5>
+                <h5>Avg Rating : {{course[5]}}</h5>
+                <h5>Avg Workload : {{course[6]}}</h5>
             </div>
           </div>
         </div>
     </div>
 
-    <a href="{{ url_for('addCom') }}">Add a New Comment</a>
+    <div class="center">
+        <a href="{{ url_for('addCom') }}">Add a New Comment</a>
+    </div>
+
+    {% for review in revs %}
+
 
     <div class="row center">
       <div class="col s12 m3 l2"></div>
       <div class="col s12 m6 l8">
         <div class="card-panel teal">
           <span class="white-text">
-              Multiple of these green panels
-              the review will be here as rev, the review will be here , the review will be here , the review will be here
-              the review will be here , the review will be here , the review will be here , the review will be here
+              <h5>Reviewer : {{ review[1] }}</h5>
+              <p>{{ review[5] }}</p>
+              <h6>Toughness : {{ review[2] }}</h6>
+              <h6>Workload : {{ review[3] }}</h6>
+              <h6>Rating : {{ review[4] }}</h6>
           </span>
         </div>
           <div>
-            <a href="{{ url_for('update', postId=1) }}">Update</a>
+            <a href="{{ url_for('update', postId=1) }}">Update &nbsp;&nbsp;</a>
             <a href="{{ url_for('delete', postId=1) }}">Delete</a>
           </div>
       </div>
@@ -65,46 +76,9 @@
       </div>
     </div>
 
-    <div class="row center">
-      <div class="col s12 m3 l2"></div>
-      <div class="col s12 m6 l8">
-        <div class="card-panel teal">
-          <span class="white-text">
-              Multiple of these green panels
-              the review will be here as rev, the review will be here , the review will be here , the review will be here
-              the review will be here , the review will be here , the review will be here , the review will be here
-          </span>
-        </div>
-      </div>
-      <div class="col s12 m3 l2"></div>
-    </div>
-    <div class="row center">
-      <div class="col s12 m3 l2"></div>
-      <div class="col s12 m6 l8">
-        <div class="card-panel teal">
-          <span class="white-text">
-              Multiple of these green panels
-              the review will be here as rev, the review will be here , the review will be here , the review will be here
-              the review will be here , the review will be here , the review will be here , the review will be here
-          </span>
-        </div>
-      </div>
-      <div class="col s12 m3 l2"></div>
-    </div>
-    <div class="row center">
-      <div class="col s12 m3 l2"></div>
-      <div class="col s12 m6 l8">
-        <div class="card-panel teal">
-          <span class="white-text">
-              Multiple of these green panels
-              the review will be here as rev, the review will be here , the review will be here , the review will be here
-              the review will be here , the review will be here , the review will be here , the review will be here
-          </span>
-        </div>
-      </div>
-      <div class="col s12 m3 l2"></div>
-    </div>
-    </div>
+        {% endfor %}
+
+
 
     <div id="forum">forum</div>
 

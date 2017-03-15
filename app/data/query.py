@@ -76,8 +76,9 @@ class Query:
 
         return self.cur.fetchall()
 
-    def getReviews(self,crn):
-        query = """SELECT * FROM Reviews WHERE CourseCRN = {crn}""".format(crn=crn)
+    def getReviewsByCid(self,cid):
+        query = """SELECT * FROM Reviews WHERE CourseId = {cid}""".format(cid=cid)
+        print query
         self.cur.execute(query)
         return self.cur.fetchall()
 
