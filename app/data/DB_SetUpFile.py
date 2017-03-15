@@ -14,7 +14,7 @@ cur = conn.cursor()
 
 
 
-cur.execute("""iNSERT into Teaches(InstructorName,Semester,CourseID) VALUES ("Chapman, W","Spring 2017",5)""") #16 Heeren, C Spring 2017
+'''cur.execute("""iNSERT into Teaches(InstructorName,Semester,CourseID) VALUES ("Chapman, W","Spring 2017",5)""") #16 Heeren, C Spring 2017
 cur.execute("""INSERT into Instructors(Instructor_Name) VALUES ("Chapman, W ")""")
 cur.execute("""INSERT into InstructorRatings(InstructorID,Rating) VALUES ("""+str(cur.lastrowid)+""",5)""")
 
@@ -53,19 +53,37 @@ cur.execute("""INSERT into InstructorRatings(InstructorID,Rating) VALUES ("""+st
 
 cur.execute("""iNSERT into Teaches(InstructorName,Semester,CourseID) VALUES ("Gui, H","Spring 2017",23)""") #16 Heeren, C Spring 2017
 cur.execute("""INSERT into Instructors(Instructor_Name) VALUES ("Gui, H")""")
-cur.execute("""INSERT into InstructorRatings(InstructorID,Rating) VALUES ("""+str(cur.lastrowid)+""",4)""")
+cur.execute("""INSERT into InstructorRatings(InstructorID,Rating) VALUES ("""+str(cur.lastrowid)+""",4)""")'''
+
+#cur.execute("""INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
+#                            VALUES ("jane2@illinois.edu", 3.5, 4.5, 3.7, REPLACE("", \"{forbidden}\", \"{replword}\"), {crn})"""")
+#cur.execute("""INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
+#                             VALUES ("jane2@illinois.edu", 3.5, 4.5, 3.7,"As you've probably heard, this is a legendary course at UIUC. It's one of the most important and well-taught courses here. This course will open many internship opportunities for you, as many interview questions come straight from CS 225. I'd recommend taking this course in the spring semester of your freshman year, so that you will be prepared for the fall recruiting season. The first few weeks of the course will teach you some C++ fundamentals, but that will change soon (CS 126 will do this job instead). You should get comfortable with pointers and dynamic memory. Some MPs are harder than the others. MP3 is pretty hard if you're not comfortable with pointers. MP 5 to 7 are easy to code, but can be hard to understand the concepts at first. Start your MPs early, the queue can get pretty long when deadline gets close.", 12)""")
+
+
+
+#cur.execute("""INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
+#                             VALUES ("jack32@illinois.edu", 3.2, 5, 5,"This is pretty much the most organised class at UIUC in my opinion. for better or worse the material has stayed pretty much the same over the years", 12)""")
+
+#cur.execute("""INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
+#                             VALUES ("adam2@illinois.edu", 3.1, 4, 4.5,"Good Course. But super hectic", 12)""")
+
+#cur.execute("""INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
+ #                            VALUES ("adam2@illinois.edu", 5, 4, 3.5,"Couldn't manage workload.Dropped after a few weeks", 12)""")
+
+
+#cur.execute("""INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
+#                             VALUES ("adam2@illinois.edu", 2, 3.4, 3.5,"The best course in UIUC to get intersnshipa", 12)""")
 
 
 
 
 
 
-
-
-
-print(cur.execute("SELECT * FROM Courses").fetchall())
-print(cur.execute("SELECT * FROM Instructors").fetchall())
-print(cur.execute("SELECT * FROM Teaches").fetchall())
+#print(cur.execute("SELECT * FROM Courses").fetchall())
+#print(cur.execute("SELECT * FROM Instructors").fetchall())
+#print(cur.execute("SELECT * FROM Teaches").fetchall())
+print(cur.execute("SELECT * FROM Reviews").fetchall())
 
 conn.commit()
 conn.close()
