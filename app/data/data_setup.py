@@ -94,11 +94,10 @@ def insert_courses(query):
 				course_description = course['description']['$']
 
 				# Insert the current course to the database
-				crn = ""
-				query.insert_courses(crn, course_description, course_id + " " + course_name, " ", 0, 0, 0, 0)
+				query.insert_courses(course_description, course_id + " " + course_name, " ", 0, 0, 0, 0)
 
 				# For testing purposes
-				print course_id
+				print "Inserted ", course_id
 				# print course_name
 				# print course_description
 
