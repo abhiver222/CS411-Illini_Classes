@@ -2,7 +2,7 @@ import sqlite3
 
 class Query:
     def __init__(self):
-        self.conn  = sqlite3.connect("class.db", check_same_thread=False)
+        self.conn  = sqlite3.connect("app/data/class.db", check_same_thread=False)
         self.cur = self.conn.cursor()
 
     # insert rating, post, review
@@ -76,8 +76,9 @@ class Query:
 
         return self.cur.fetchall()
 
-    def getReviews(self,crn):
-        query = """SELECT * FROM Reviews WHERE CourseCRN = {crn}""".format(crn=crn)
+    def getReviewsByCid(self,cid):
+        query = """SELECT * FROM Reviews WHERE CourseId = {cid}""".format(cid=cid)
+        print query
         self.cur.execute(query)
         return self.cur.fetchall()
 
