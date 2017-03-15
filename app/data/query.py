@@ -29,6 +29,7 @@ class Query:
                                                                                                 text=Text,crn=CourseCRN)
         self.cur.execute(query)
         self.conn.commit()
+
     # insert a new review after filtering out the bad words
     def ins_review_replWrd(self,UserEmail, Toughness, Workload, Rating, Text, CourseID,Forbidden,Replword):
         query = """INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)

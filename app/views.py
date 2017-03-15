@@ -23,3 +23,21 @@ def search():
         # return redirect(url_for('index'))
     return "what"
 
+@app.route('/comm', methods=['POST','GET'])
+def addCom():
+    print "in add com"
+    return render_template('comment.html')
+
+@app.route('/update', methods=['POST','GET'])
+def update():
+    print "in update"
+    postId = request.args.get('postId')
+    print postId
+    return render_template('comment.html')
+
+@app.route('/delete', methods=['POST','GET'])
+def delete():
+    print "in delete"
+    postId = request.args.get('postId')
+    print postId
+    return redirect(url_for('index'))

@@ -44,19 +44,7 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col s12 m2 l2"></div>
-        <form class="col s12 m8 l8">
-            <div class="row">
-                <div class="input-field col s12">
-                    <textarea id="textarea1" class="materialize-textarea"></textarea>
-                    <label for="textarea1">Add a Review</label>
-                </div>
-            </div>
-        </form>
-        <div class="col s12 m2 l2"></div>
-
-    </div>
+    <a href="{{ url_for('addCom') }}">Add a New Comment</a>
 
     <div class="row center">
       <div class="col s12 m3 l2"></div>
@@ -68,9 +56,15 @@
               the review will be here , the review will be here , the review will be here , the review will be here
           </span>
         </div>
+          <div>
+            <a href="{{ url_for('update', postId=1) }}">Update</a>
+            <a href="{{ url_for('delete', postId=1) }}">Delete</a>
+          </div>
       </div>
-      <div class="col s12 m3 l2"></div>
+      <div class="col s12 m3 l2">
+      </div>
     </div>
+
     <div class="row center">
       <div class="col s12 m3 l2"></div>
       <div class="col s12 m6 l8">
