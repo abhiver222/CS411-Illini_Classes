@@ -40,7 +40,8 @@ def addCom():
         query.ins_review_replWrd("temp@illinois.edu", request.form['toughness'], request.form['work'], request.form['rating'],
                                  request.form['rev'], cid2,"fuck","fudge")
         reviews = query.getReviewsByCid(cid2)
-        return render_template('course.html', course=cid2, revs=reviews)
+        course = query.getCourseInfoByCid(cid2)
+        return render_template('course.html', course=course[0], revs=reviews)
     return render_template('comment.html', type='com', cid=cid)
 
 @app.route('/update', methods=['POST','GET'])

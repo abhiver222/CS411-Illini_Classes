@@ -69,9 +69,9 @@ class Query:
 
         return self.cur.fetchall()
 
-    def getCourseInfoByCrn(self,crn):
+    def getCourseInfoByCid(self,cid):
 
-        query = """SELECT * FROM Courses WHERE CRN = \"{crn}\"""".format(crn=crn)
+        query = """SELECT * FROM Courses WHERE CourseId = {cid}""".format(cid=cid)
         self.cur.execute(query)
 
         return self.cur.fetchall()
