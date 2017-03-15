@@ -14,8 +14,14 @@
         <form class="col s12 m8 l8">
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="textarea1" class="materialize-textarea"></textarea>
-                    <label for="textarea1">Add a Review</label>
+                    <textarea id="textarea1" class="materialize-textarea" placeholder="Review" name="rev" requried></textarea>
+                    <!--<label for="textarea1">Add a Review</label>-->
+                </div>
+                <div class="input-field col s6 center">
+                    <input type="number" name="toughness" placeholder="Toughness (1-5)" max="5" min="1" required>
+                    <input type="number" name="work" placeholder="Workload (1-5)" max="5" min="1" required>
+                    <input type="number" name="rating" placeholder="Rating (1-10)" max="10" min="1" required>
+                    <input type="hidden" value="{{cid}}" name="cid">
                 </div>
             </div>
             <div class="row center">
@@ -24,6 +30,6 @@
             </form>
         <div class="col s12 m2 l2"></div>
     </div>
-
+    {% include 'foot.html' %}
 </body>
 </html>
