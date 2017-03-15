@@ -11,11 +11,11 @@
 
     <div class="row">
         <div class="col s12 m2 l2"></div>
-        <form class="col s12 m8 l8">
+        {% if type == 'com' %}
+        <form class="col s12 m8 l8" action="/comm" method="POST">
             <div class="row">
                 <div class="input-field col s12">
                     <textarea id="textarea1" class="materialize-textarea" placeholder="Review" name="rev" requried></textarea>
-                    <!--<label for="textarea1">Add a Review</label>-->
                 </div>
                 <div class="input-field col s6 center">
                     <input type="number" name="toughness" placeholder="Toughness (1-5)" max="5" min="1" required>
@@ -25,9 +25,29 @@
                 </div>
             </div>
             <div class="row center">
-                <input type="submit" id="search-button" value="Comment" name="comm" class="btn-large waves-effect waves-light orange">
+                <input type="submit" id="search-button1" value="Comment" name="comm" class="btn-large waves-effect waves-light orange">
+            </div>
+        </form>
+
+        {% else %}
+        <form class="col s12 m8 l8" action="/update" method="POST">
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea2" class="materialize-textarea" placeholder="Review" name="rev" requried>{{rev[5]}}</textarea>
+                </div>
+                <div class="input-field col s6 center">
+                    <input type="number" name="toughness" placeholder="Toughness (1-5)" max="5" min="1" required value="{{rev[2]}}">
+                    <input type="number" name="work" placeholder="Workload (1-5)" max="5" min="1" required value="{{rev[3]}}">
+                    <input type="number" name="rating" placeholder="Rating (1-10)" max="10" min="1" required value="{{rev[4]}}">
+                    <input type="hidden" value="{{cid}}" name="cid">
+                    <input type="hidden" value="{{revid}}" name="revid">
+                </div>
+            </div>
+            <div class="row center">
+                <input type="submit" id="search-button2" value="Comment" name="comm" class="btn-large waves-effect waves-light orange">
             </div>
             </form>
+        {% endif %}
         <div class="col s12 m2 l2"></div>
     </div>
     {% include 'foot.html' %}
