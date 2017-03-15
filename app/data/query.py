@@ -40,6 +40,14 @@ class Query:
         self.cur.execute(query)
         self.conn.commit()
 
+    def updateRev(self, revId, text, tough, work, rate):
+        query = """UPDATE Reviews SET Toughness = {tough}, Workload = {work}, Rating = {rate},
+                    Text = REPLACE (\"{text}\", \"{forbidden}\", \"{repl}\") WHERE ID = {revid}""".format(
+            tough=tough, work=work, rate=rate, text=text, revid=revId, forbidden="fuck", repl="fudge")
+
+        self.cur.execute(query)
+        self.conn.commit()
+
     # insert new user
     def ins_new_user(self, email, passw, name):
 
@@ -78,7 +86,13 @@ class Query:
 
     def getReviewsByCid(self,cid):
         query = """SELECT * FROM Reviews WHERE CourseId = {cid}""".format(cid=cid)
-        print query
+
+        self.cur.execute(query)
+        return self.cur.fetchall()
+
+    def getReviewsByRevid(self,revid):
+        query = """SELECT * FROM Reviews WHERE ID = {rid}""".format(rid=revid)
+
         self.cur.execute(query)
         return self.cur.fetchall()
 
@@ -121,3 +135,5 @@ class Query:
         print query
         # self.cur.execute(query)
         # self.conn.commit()
+
+

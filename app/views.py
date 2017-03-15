@@ -19,10 +19,9 @@ def search():
     courses = query.getCourseInfoByName(name)
     cid = courses[0][0]
     reviews = query.getReviewsByCid(cid)
-    print reviews
-    print courses
+    stat = roundVals(query.get_stats(cid)[0])
     if request.method == 'POST':
-        return render_template('course.html', course=courses[0], revs=reviews)
+        return render_template('course.html', course=courses[0], revs=reviews, stat=stat)
     return "what"
 
 
@@ -34,7 +33,6 @@ def addCom():
     print cid
     if request.method == 'POST':
         query = Query()
-        print request.form
         cid2 = request.form['cid']
 
         query.ins_review_replWrd("temp@illinois.edu", request.form['toughness'], request.form['work'], request.form['rating'],
@@ -42,18 +40,42 @@ def addCom():
 
         reviews = query.getReviewsByCid(cid2)
         course = query.getCourseInfoByCid(cid2)
+        stat = roundVals(query.get_stats(cid2)[0])
+        print stat
 
-        return render_template('course.html', course=course[0], revs=reviews)
+        return render_template('course.html', course=course[0], revs=reviews, stat=stat)
 
     return render_template('comment.html', type='com', cid=cid)
 
 @app.route('/update', methods=['POST','GET'])
 def update():
     print "in update"
-    print request.method
-    postId = request.args.get('postId')
-    print postId
-    return render_template('comment.html')
+    query = Query()
+
+
+    cid = request.args.get('cid')
+    if request.method == 'GET':
+        postId = request.args.get('postId')
+        rev = query.getReviewsByRevid(postId)
+        print postId
+        print rev
+
+    if request.method == 'POST':
+        cid2 = request.form['cid']
+        postId2 = request.form['revid']
+
+
+        query.updateRev(postId2, request.form['rev'], request.form['toughness'],
+                                 request.form['work'],
+                                 request.form['rating'])
+
+        reviews = query.getReviewsByCid(cid2)
+        course = query.getCourseInfoByCid(cid2)
+        stat = roundVals(query.get_stats(cid2)[0])
+
+        return render_template('course.html', course=course[0], revs=reviews, stat=stat)
+
+    return render_template('comment.html', type='up', cid=cid, rev=rev[0], revid=postId)
 
 @app.route('/delete', methods=['POST','GET'])
 def delete():
@@ -65,5 +87,9 @@ def delete():
     cid = request.args.get('cid')
     reviews = query.getReviewsByCid(cid)
     courses = query.getCourseInfoByCid(cid)
+    stat = roundVals(query.get_stats(cid)[0])
 
-    return render_template('course.html', course=courses[0], revs=reviews)
+    return render_template('course.html', course=courses[0], revs=reviews, stat=stat)
+
+def roundVals(tup):
+    return tuple(round(itup,1) for itup in tup)
