@@ -65,6 +65,8 @@ def insert_courses(query):
 		dept_id = dept['@id']			# e.g. CS
 		dept_url = dept['@href']		# API URL for a particular dept.
 
+		# print dept_id
+
 		# Departments with little information will be passed
 		if (dept_id == 'BIOL' or dept_id == 'ENT'
 			or dept_id == 'PBIO' or dept_id == 'WGGP'):
@@ -75,11 +77,6 @@ def insert_courses(query):
 			course_url = course['@href']						# Get course API URL
 			course = get_a_course(course_url)					# Get a course in JSON format
 
-			course_sem_url = course['@href']					# Get course of the current semester
-
-			course_sem = get_a_course(course_sem_url)			# Get this semester's course info
-			print course_sem
-			crn = course_sem['parents']['term']['@id']			# Get its crn
 			course_id = course['@id']							# Get course id, e.g. CS 411
 			course_name = course['label']['$']					# Get course name, e.g. Databases
 
@@ -88,11 +85,11 @@ def insert_courses(query):
 			course_description = course['description']['$']
 
 			# Insert the current course to the database
+			crn = ""
 			query.insert_courses(crn, course_description, course_id + " " + course_name, " ", 0, 0, 0, 0)
 
 			# For testing purposes
 			# print course_id
-			# print crn
 			# print course_name
 			# print course_description
 
@@ -101,9 +98,7 @@ Setup departments and courses info
 '''
 def main():
 	query = Query()
-
-	# insert_departments(query)
-	# insert_departments()
+	#insert_departments(query)     # Departments are already in the db, right?
 	insert_courses(query)
 
 if __name__ == "__main__":
