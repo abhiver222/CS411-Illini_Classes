@@ -31,11 +31,16 @@ def addCom():
     print "in add com"
     print request.method
     cid = request.args.get('courseId')
+    print cid
     if request.method == 'POST':
         query = Query()
+        print request.form
+        cid2 = request.form['cid']
+
         query.ins_review_replWrd("temp@illinois.edu", request.form['toughness'], request.form['work'], request.form['rating'],
-                                 request.form['rev'], request.form['cid'],"fuck","fudge")
-        return render_template('landing.html')
+                                 request.form['rev'], cid2,"fuck","fudge")
+        reviews = query.getReviewsByCid(cid2)
+        return render_template('course.html', course=cid2, revs=reviews)
     return render_template('comment.html', type='com', cid=cid)
 
 @app.route('/update', methods=['POST','GET'])

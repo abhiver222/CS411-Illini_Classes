@@ -33,7 +33,7 @@ class Query:
     # insert a new review after filtering out the bad words
     def ins_review_replWrd(self,UserEmail, Toughness, Workload, Rating, Text, CourseID,Forbidden,Replword):
         query = """INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
-                             VALUES (\"{email}\", {tough}, {work}, {rating}, REPLACE(\" {text}\", \"{forbidden}\", \"{replword}\"), {crn})""".format(
+                             VALUES (\"{email}\", {tough}, {work}, {rating}, REPLACE(\" {text}\", \"{forbidden}\", \"{Replword}\"), {crn})""".format(
             email=UserEmail, tough=Toughness,
             work=Workload, rating=Rating,
             text=Text, crn=CourseID, forbidden=Forbidden,Replword=Replword)
