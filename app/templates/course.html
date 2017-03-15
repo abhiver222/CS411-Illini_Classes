@@ -22,7 +22,7 @@
     </div>
 
     <div class="row center">
-        <div class="col s12 m3 l3"></div>
+        <div class="col s12  m3 l3"></div>
         <div class="col s12 m6 l6">
             <ul class="tabs">
                 <li class="tab col s6 m6 l6"><a class="active" href="#info">Info</a></li>
@@ -35,8 +35,7 @@
 
     <div class="col s12" id="info">
     <div class="row center">
-        <div class="col s12 m2 l2"></div>
-        <div class="col s12 m8 l8">
+        <div class="col s12 m6 offset-m3">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
               <span class="card-title">Course Information</span>
@@ -47,7 +46,6 @@
             </div>
           </div>
         </div>
-        <div class="col s12 m2 l2"></div>
     </div>
 
     <div class="center">
@@ -58,8 +56,8 @@
 
 
     <div class="row center">
-      <div class="col s12 m2 l2"></div>
-      <div class="col s12 m8 l8">
+      <div class="col s12 m3 l2"></div>
+      <div class="col s12 m6 l8">
         <div class="card-panel teal">
           <span class="white-text">
               <h5>Reviewer : {{ review[1] }}</h5>
@@ -74,7 +72,7 @@
             <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
           </div>
       </div>
-      <div class="col s12 m2 l2">
+      <div class="col s12 m3 l2">
       </div>
     </div>
 
