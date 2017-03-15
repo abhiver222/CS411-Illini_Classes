@@ -30,9 +30,13 @@ def search():
 def addCom():
     print "in add com"
     print request.method
+    cid = request.args.get('courseId')
     if request.method == 'POST':
+        query = Query()
+        query.ins_review_replWrd("temp@illinois.edu", request.form['toughness'], request.form['work'], request.form['rating'],
+                                 request.form['rev'], request.form['cid'],"fuck","fudge")
         return render_template('landing.html')
-    return render_template('comment.html')
+    return render_template('comment.html', type='com', cid=cid)
 
 @app.route('/update', methods=['POST','GET'])
 def update():
