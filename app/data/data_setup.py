@@ -41,10 +41,14 @@ Ouput: A course in JSON format that contains course number, course name, and cou
 XML example: http://courses.illinois.edu/cisapp/explorer/catalog/2017/spring/AFRO/100.xml
 '''
 def get_a_course(course_url):
-	api_response = requests.get(course_url)
-	api_json = bf.data(fromstring(api_response.text))
-	course = api_json['{http://rest.cis.illinois.edu}course']
-	return course
+	api_response = None
+	try:
+		api_response = requests.get(course_url)
+		api_json = bf.data(fromstring(api_response.text))
+		course = api_json['{http://rest.cis.illinois.edu}course']
+		return course
+	except:
+		return None
 
 '''
 Insert all departments' name to the database
@@ -60,10 +64,16 @@ Insert all courses' info to the database
 '''
 def insert_courses(query):
 	depts = get_all_departments()
+
+	# To run from where it crashed last time
+	# depts = depts[91:]
+
 	# print depts
 	for dept in depts:
 		dept_id = dept['@id']			# e.g. CS
 		dept_url = dept['@href']		# API URL for a particular dept.
+
+		print dept_id
 
 		# Departments with little information will be passed
 		if (dept_id == 'BIOL' or dept_id == 'ENT'
@@ -75,36 +85,30 @@ def insert_courses(query):
 			course_url = course['@href']						# Get course API URL
 			course = get_a_course(course_url)					# Get a course in JSON format
 
-			course_sem_url = course['@href']					# Get course of the current semester
+			if course != None:
+				course_id = course['@id']							# Get course id, e.g. CS 411
+				course_name = course['label']['$']					# Get course name, e.g. Databases
 
-			course_sem = get_a_course(course_sem_url)			# Get this semester's course info
-			print course_sem
-			crn = course_sem['parents']['term']['@id']			# Get its crn
-			course_id = course['@id']							# Get course id, e.g. CS 411
-			course_name = course['label']['$']					# Get course name, e.g. Databases
+				if 'description' not in course:						# Some of the courses don't have descriptions
+					continue
+				course_description = course['description']['$']
 
-			if 'description' not in course:						# Some of the courses don't have descriptions
-				continue
-			course_description = course['description']['$']
+				# Insert the current course to the database
+				query.insert_courses(course_description, course_id + " " + course_name, " ", 0, 0, 0, 0)
 
-			# Insert the current course to the database
-			query.insert_courses(crn, course_description, course_id + " " + course_name, " ", 0, 0, 0, 0)
-
-			# For testing purposes
-			# print course_id
-			# print crn
-			# print course_name
-			# print course_description
+				# For testing purposes
+				print "Inserted ", course_id
+				# print course_name
+				# print course_description
 
 '''
 Setup departments and courses info
 '''
 def main():
 	query = Query()
-
-	# insert_departments(query)
-	# insert_departments()
+	#insert_departments(query)     # Departments are already in the db, right?
 	insert_courses(query)
+	#insert_courses(1)
 
 if __name__ == "__main__":
     # execute only if run as a script

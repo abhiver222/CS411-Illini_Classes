@@ -29,7 +29,15 @@ class Query:
                                                                                                 text=Text,crn=CourseCRN)
         self.cur.execute(query)
         self.conn.commit()
-
+    # insert a new review after filtering out the bad words
+    def ins_review_replWrd(self,UserEmail, Toughness, Workload, Rating, Text, CourseID,Forbidden,Replword):
+        query = """INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
+                             VALUES (\"{email}\", {tough}, {work}, {rating}, REPLACE(\" {text}\", \"{forbidden}\", \"{replword}\"), {crn})""".format(
+            email=UserEmail, tough=Toughness,
+            work=Workload, rating=Rating,
+            text=Text, crn=CourseID, forbidden=Forbidden,Replword=Replword)
+        self.cur.execute(query)
+        self.conn.commit()
 
     # insert new user
     def ins_new_user(self, email, passw, name):
@@ -41,15 +49,26 @@ class Query:
 
     # selection queries
 
+    def get_stats(self,courseID):
+        #obtain the avgworkload, avgToughness, avgWOrkload for the course based on reviews
+        query="""SELECT AVG(Toughness) AS AvgToughness, AVG(Workload) AS AvgWorkload, AVG(Rating) AS AvgRating
+            FROM Reviews
+            WHERE CourseID=\"{courseid}\"
+            GROUP BY CourseID""".format(courseid=courseID)
+        self.cur.execute(query)
+        return self.cur.fetchall()
+
+
+
     # course information queries
     def getCourseInfoByName(self,courseName):
 
-        query = """SELECT * FROM Courses WHERE Name = \"{name}\"""".format(name=courseName)
+        query = """SELECT * FROM Courses WHERE Name LIKE \"%{name}%\"""".format(name=courseName)
         self.cur.execute(query)
 
         return self.cur.fetchall()
 
-    def getCourseInfoByName(self,crn):
+    def getCourseInfoByCrn(self,crn):
 
         query = """SELECT * FROM Courses WHERE CRN = \"{crn}\"""".format(crn=crn)
         self.cur.execute(query)
@@ -90,11 +109,11 @@ class Query:
         self.cur.execute(query)
         self.conn.commit()
 
-    def insert_courses(self, crn, desc, name, comb_reviews, avg_toughness, avg_rating, avg_workload, dept_id):
+    def insert_courses(self, desc, name, comb_reviews, avg_toughness, avg_rating, avg_workload, dept_id):
 
-        query = """INSERT INTO Courses (CRN, Description, Name, CombReviews, AvgToughness, AvgRating, AvgWkload, DeptID)
-                        VALUES ({crn}, \"{desc}\", \"{name}\", \"{comb_reviews}\", {avg_toughness}, {avg_rating}, {avg_workload}, {dept_id})""".format(
-                            crn=crn, desc=desc, name=name, comb_reviews=comb_reviews, avg_toughness=avg_toughness, avg_rating=avg_rating,
+        query = """INSERT INTO Courses (Description, Name, CombReviews, AvgToughness, AvgRating, AvgWkload, DeptID)
+                        VALUES (\"{desc}\", \"{name}\", \"{comb_reviews}\", {avg_toughness}, {avg_rating}, {avg_workload}, {dept_id})""".format(
+                            desc=desc, name=name, comb_reviews=comb_reviews, avg_toughness=avg_toughness, avg_rating=avg_rating,
                             avg_workload=avg_workload, dept_id=dept_id
                         )
         print query
