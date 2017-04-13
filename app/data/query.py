@@ -2,7 +2,8 @@ import sqlite3
 
 class Query:
     def __init__(self):
-        self.conn  = sqlite3.connect("app/data/class.db", check_same_thread=False)
+        self.conn  = sqlite3.connect("app/data/class.db", check_same_thread=False) # if local
+        # self.conn = sqlite3.connect("class.db", check_same_thread=False) # if server
         self.cur = self.conn.cursor()
 
     # insert rating, post, review
@@ -33,18 +34,10 @@ class Query:
     # insert a new review after filtering out the bad words
     def ins_review_replWrd(self,UserEmail, Toughness, Workload, Rating, Text, CourseID,Forbidden,Replword):
         query = """INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
-                             VALUES (\"{email}\", {tough}, {work}, {rating}, REPLACE(\" {text}\", \"{forbidden}\", \"{Replword}\"), {crn})""".format(
+                             VALUES (\"{email}\", {tough}, {work}, {rating}, REPLACE (\" {text}\", \"{forbidden}\", \"{replword}\"), {crn})""".format(
             email=UserEmail, tough=Toughness,
             work=Workload, rating=Rating,
             text=Text, crn=CourseID, forbidden=Forbidden,Replword=Replword)
-        self.cur.execute(query)
-        self.conn.commit()
-
-    def updateRev(self, revId, text, tough, work, rate):
-        query = """UPDATE Reviews SET Toughness = {tough}, Workload = {work}, Rating = {rate},
-                    Text = REPLACE (\"{text}\", \"{forbidden}\", \"{repl}\") WHERE ID = {revid}""".format(
-            tough=tough, work=work, rate=rate, text=text, revid=revId, forbidden="fuck", repl="fudge")
-
         self.cur.execute(query)
         self.conn.commit()
 
@@ -77,22 +70,16 @@ class Query:
 
         return self.cur.fetchall()
 
-    def getCourseInfoByCid(self,cid):
+    def getCourseInfoByCrn(self,crn):
 
-        query = """SELECT * FROM Courses WHERE CourseId = {cid}""".format(cid=cid)
+        query = """SELECT * FROM Courses WHERE CRN = \"{crn}\"""".format(crn=crn)
         self.cur.execute(query)
 
         return self.cur.fetchall()
 
     def getReviewsByCid(self,cid):
         query = """SELECT * FROM Reviews WHERE CourseId = {cid}""".format(cid=cid)
-
-        self.cur.execute(query)
-        return self.cur.fetchall()
-
-    def getReviewsByRevid(self,revid):
-        query = """SELECT * FROM Reviews WHERE ID = {rid}""".format(rid=revid)
-
+        print query
         self.cur.execute(query)
         return self.cur.fetchall()
 
@@ -135,5 +122,3 @@ class Query:
         print query
         # self.cur.execute(query)
         # self.conn.commit()
-
-
