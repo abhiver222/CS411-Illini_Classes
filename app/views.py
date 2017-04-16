@@ -30,11 +30,23 @@ def search():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     print "in login"
-    
+    if "loggedIn" in session and session['loggedIn'] == "in":
+        print "already logged in"
+    print "one"
     user = request.form['login-email']
     passw = request.form['login-pass']
 
+    auth = authenticate(user, passw)
+
+    if auth:
+        print "send message saying logged in"
+    else:
+        print "not logged in"
+
     return render_template('landing.html')
+
+def authenticate(user, passw):
+    print "add code to check user and pass"
 
 @app.route('/comm', methods=['POST','GET'])
 def addCom():
