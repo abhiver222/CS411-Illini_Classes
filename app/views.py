@@ -30,7 +30,10 @@ def search():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     print "in login"
-    user =
+    
+    user = request.form['login-email']
+    passw = request.form['login-pass']
+
     return render_template('landing.html')
 
 @app.route('/comm', methods=['POST','GET'])
