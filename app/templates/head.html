@@ -23,11 +23,11 @@
         <h1>Log In</h1>
     </div>
     <div class="row">
-        <form class="col s12">
+        <form class="col s12" action="/login" method="POST">
             <div class="row">
                 <div class="col s12 m4 l2"></div>
                 <div class="input-field col s12 m4 l8">
-                    <input id="login-email" type="text" name="email" class="validate black-text">
+                    <input id="login-email" type="text" name="login-email" class="validate black-text">
                     <label for="login-email">Email</label>
                 </div>
                 <div class="col s12 m4 l2"></div>
@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col s12 m4 l2"></div>
                 <div class="input-field col s12 m4 l8">
-                    <input id="login-password" type="text" name="password" class="validate black-text">
+                    <input id="login-password" type="text" name="login-password" class="validate black-text">
                     <label for="login-password">Password</label>
                 </div>
                 <div class="col s12 m4 l2"></div>
@@ -48,28 +48,36 @@
 </div>
 <div id="signup-modal" class="container modal">
     <div class="row center" style="color:orange;">
-        <h1>Log In</h1>
+        <h1>Sign Up</h1>
     </div>
     <div class="row">
-        <form class="col s12" action="/login" method="POST">
+        <form class="col s12" action="/signup" method="POST">
             <div class="row">
                 <div class="col s12 m4 l2"></div>
                 <div class="input-field col s12 m4 l8">
-                    <input id="login-email" type="text" name="email" class="validate black-text">
-                    <label for="login-email">Email</label>
+                    <input id="signup-email" type="text" name="signup-email" class="validate black-text">
+                    <label for="signup-email">Email</label>
                 </div>
                 <div class="col s12 m4 l2"></div>
             </div>
             <div class="row">
                 <div class="col s12 m4 l2"></div>
                 <div class="input-field col s12 m4 l8">
-                    <input id="login-password" type="text" name="password" class="validate black-text">
-                    <label for="login-password">Password</label>
+                    <input id="signup-password" type="text" name="signup-password" class="validate black-text">
+                    <label for="signup-password">Password</label>
+                </div>
+                <div class="col s12 m4 l2"></div>
+            </div>
+            <div class="row">
+                <div class="col s12 m4 l2"></div>
+                <div class="input-field col s12 m4 l8">
+                    <input id="confirm-password" type="text" name="confirm-password" class="validate black-text">
+                    <label for="confirm-password">Confirm Password</label>
                 </div>
                 <div class="col s12 m4 l2"></div>
             </div>
             <div class="row center">
-                <input type="submit" id="login-button" value="login" class="btn-flat white-text waves-effect waves-light orange">
+                <input type="submit" id="signup-button" value="signup" class="btn-flat white-text waves-effect waves-light orange">
             </div>
         </form>
     </div>
