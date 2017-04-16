@@ -27,6 +27,11 @@ def search():
         return render_template('course.html', course=courses[0], revs=reviews, stat=stat)
     return "what"
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    print "in login"
+    user =
+    return render_template('landing.html')
 
 @app.route('/comm', methods=['POST','GET'])
 def addCom():
