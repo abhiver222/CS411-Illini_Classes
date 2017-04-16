@@ -32,12 +32,12 @@ def login():
     print "in login"
     if "loggedIn" in session and session['loggedIn'] == "in":
         print "already logged in"
-    print "one"
+
     user = request.form['login-email']
-    passw = request.form['login-pass']
+    passw = request.form['login-password']
 
     auth = authenticate(user, passw)
-
+    print "one"
     if auth:
         print "send message saying logged in"
     else:
