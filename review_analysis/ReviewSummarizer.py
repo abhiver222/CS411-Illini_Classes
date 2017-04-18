@@ -1,29 +1,28 @@
 import logging
-
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
-from nltk.corpus import stopwords
+from gensim.summarization import summarize,keywords
 
-import nltk
-import re
-### Using pretrained model###
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+class ReviewSummarizer:
 
+    def __init__(self,reviews):
+        self.ratio=0.1
+        self.wordcount=50
+        self.reviews=reviews
+
+    def getSummarizedText(self):
+        txt=' '.join(self.reviews)
+        return(summarize(text=txt,ratio=self.ratio,word_count=self.wordcount))
+    def getKeyWords(self):
+        txt = ' '.join(self.reviews)
+        return(keywords(text=txt, ratio=self.ratio))
 
 if __name__== "__main__":
     with open("mockdata.txt") as fp:
-        reviews=fp.readlines()
-    Sen=SentimentIntensityAnalyzer()
-    #Data Preprocessing
-    reviewsList=[]
-    analyzer = SentimentIntensityAnalyzer()
-    stopwrds = set(stopwords.words('english'))
-    for review in reviews:
-        vs = analyzer.polarity_scores(review)
-        print("{:-<65} {}".format(review, str(vs)))
-        #rv =re.sub("[^\w]", " ",  review).split()
-        #rv=[word for word in rv if word not in stopwords.words('english')]
-        #reviewsList.extend(rv)
+        reviews = fp.readlines()
+    sumsr= ReviewSummarizer(reviews)
+    print(sumsr.getKeyWords())
+    print(sumsr.getSummarizedText())
 
 
 

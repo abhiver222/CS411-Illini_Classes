@@ -26,7 +26,7 @@ class SentimentAnalyser:
         else:
             return 'neutral'
 
-    def senti_pretrained(self,reviews):
+    def senti_pretrained(self):
         analyzer = SentimentIntensityAnalyzer()
         review_results=[]
         for review in self.reviews:
@@ -61,7 +61,7 @@ if __name__== "__main__":
     with open("mockdata.txt") as fp:
         reviews=fp.readlines()
     alyser= SentimentAnalyser(reviews)
-    sentiments=alyser.senti_pretrained(reviews)
+    sentiments=alyser.senti_pretrained()
     print(sentiments)
     #Data Preprocessing
     #reviewsList=[]
