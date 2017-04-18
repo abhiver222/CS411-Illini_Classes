@@ -50,6 +50,12 @@ class Query:
         self.cur.execute(query)
         self.conn.commit()
 
+    def checkIfUserExist(self, user):
+
+        query = """SELECT * FROM Users WHERE Email == \"{user}\"""".format(user=user)
+        self.cur.execute(query)
+        return self.cur.fetchall()
+
     # insert new user
     def ins_new_user(self, email, passw, name):
 
@@ -57,6 +63,12 @@ class Query:
                     VALUES (\"{email}\", \"{passw}\", \"{name}\")""".format(email=email,passw=passw,name=name)
         self.cur.execute(query)
         self.conn.commit()
+
+    # check user
+    def check_auth(self, email, passw):
+        query = """SELECT * FROM Users WHERE Email = \"{user}\" AND Password = \"{passw}\"""".format(user=email, passw=passw)
+        self.cur.execute(query)
+        return self.cur.fetchall()
 
     # selection queries
 
