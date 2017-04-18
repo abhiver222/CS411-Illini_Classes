@@ -34,10 +34,19 @@ class Query:
     # insert a new review after filtering out the bad words
     def ins_review_replWrd(self,UserEmail, Toughness, Workload, Rating, Text, CourseID,Forbidden,Replword):
         query = """INSERT INTO Reviews (UserEmail, Toughness, Workload, Rating, Text, CourseID)
-                             VALUES (\"{email}\", {tough}, {work}, {rating}, REPLACE (\" {text}\", \"{forbidden}\", \"{replword}\"), {crn})""".format(
+                             VALUES (\"{email}\", {tough}, {work}, {rating}, REPLACE(\" {text}\", \"{forbidden}\", \"{Replword}\"), {crn})""".format(
             email=UserEmail, tough=Toughness,
             work=Workload, rating=Rating,
             text=Text, crn=CourseID, forbidden=Forbidden,Replword=Replword)
+        self.cur.execute(query)
+        self.conn.commit()
+
+    # update
+    def updateRev(self, revId, text, tough, work, rate):
+        query = """UPDATE Reviews SET Toughness = {tough}, Workload = {work}, Rating = {rate},
+        Text = REPLACE (\"{text}\", \"{forbidden}\", \"{repl}\") WHERE ID = {revid}""".format(
+        tough=tough, work=work, rate=rate, text=text, revid=revId, forbidden="fuck", repl="fudge")
+
         self.cur.execute(query)
         self.conn.commit()
 
@@ -70,9 +79,9 @@ class Query:
 
         return self.cur.fetchall()
 
-    def getCourseInfoByCrn(self,crn):
+    def getCourseInfoByCid(self,cid):
 
-        query = """SELECT * FROM Courses WHERE CRN = \"{crn}\"""".format(crn=crn)
+        query = """SELECT * FROM Courses WHERE CourseId = {cid}""".format(cid=cid)
         self.cur.execute(query)
 
         return self.cur.fetchall()

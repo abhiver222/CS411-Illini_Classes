@@ -1,5 +1,6 @@
 from flask import Flask
 
 app = Flask(__name__)
+app.secret_key = "this is good content"
 
 from app import views

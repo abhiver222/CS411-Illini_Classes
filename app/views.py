@@ -19,11 +19,34 @@ def search():
     courses = query.getCourseInfoByName(name)
     cid = courses[0][0]
     reviews = query.getReviewsByCid(cid)
-    stat = roundVals(query.get_stats(cid)[0])
+    try:
+        stat = roundVals(query.get_stats(cid)[0])
+    except Exception:
+        stat = 0
     if request.method == 'POST':
         return render_template('course.html', course=courses[0], revs=reviews, stat=stat)
     return "what"
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    print "in login"
+    if "loggedIn" in session and session['loggedIn'] == "in":
+        print "already logged in"
+
+    user = request.form['login-email']
+    passw = request.form['login-password']
+
+    auth = authenticate(user, passw)
+    print "one"
+    if auth:
+        print "send message saying logged in"
+    else:
+        print "not logged in"
+
+    return render_template('landing.html')
+
+def authenticate(user, passw):
+    print "add code to check user and pass"
 
 @app.route('/comm', methods=['POST','GET'])
 def addCom():
@@ -54,9 +77,10 @@ def update():
 
 
     cid = request.args.get('cid')
+    rev = []
     if request.method == 'GET':
         postId = request.args.get('postId')
-        rev = query.getReviewsByRevid(postId)
+        rev = query.getReviewsByCid(postId)
         print postId
         print rev
 
@@ -75,6 +99,8 @@ def update():
 
         return render_template('course.html', course=course[0], revs=reviews, stat=stat)
 
+    if len(rev) <= 0:
+        rev = [""]
     return render_template('comment.html', type='up', cid=cid, rev=rev[0], revid=postId)
 
 @app.route('/delete', methods=['POST','GET'])

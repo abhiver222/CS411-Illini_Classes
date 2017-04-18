@@ -1,4 +1,84 @@
- <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
- <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <title>Illini_Classes</title>
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Illini_Classes</title>
+<nav class="light-blue lighten-1" role="navigation">
+<div class="nav-wrapper container">
+
+    <a id="logo-container" href="#" class="brand-logo">Home</a>
+    <ul class="right hide-on-med-and-down">
+        <li><a href="#login-modal">Login</a></li>
+        <li><a href="#signup-modal">Signup</a></li>
+    </ul>
+    <ul id="nav-mobile" class="side-nav">
+        <li><a href="#login-modal">Login</a></li>
+        <li><a href="#signup-modal">Signup</a></li>
+    </ul>
+
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+</div>
+</nav>
+<div id="login-modal" class="container modal">
+    <div class="row center" style="color:orange;">
+        <h1>Log In</h1>
+    </div>
+    <div class="row">
+        <form class="col s12" action="/login" method="POST">
+            <div class="row">
+                <div class="col s12 m4 l2"></div>
+                <div class="input-field col s12 m4 l8">
+                    <input required id="login-email" type="text" name="login-email" class="validate black-text">
+                    <label for="login-email">Email</label>
+                </div>
+                <div class="col s12 m4 l2"></div>
+            </div>
+            <div class="row">
+                <div class="col s12 m4 l2"></div>
+                <div class="input-field col s12 m4 l8">
+                    <input required id="login-password" type="text" name="login-password" class="validate black-text">
+                    <label for="login-password">Password</label>
+                </div>
+                <div class="col s12 m4 l2"></div>
+            </div>
+            <div class="row center">
+                <input type="submit" id="login-button" value="login" class="btn-flat white-text waves-effect waves-light orange">
+            </div>
+        </form>
+    </div>
+</div>
+<div id="signup-modal" class="container modal">
+    <div class="row center" style="color:orange;">
+        <h1>Sign Up</h1>
+    </div>
+    <div class="row">
+        <form class="col s12" action="/signup" method="POST">
+            <div class="row">
+                <div class="col s12 m4 l2"></div>
+                <div class="input-field col s12 m4 l8">
+                    <input required id="signup-email" type="text" name="signup-email" class="validate black-text">
+                    <label for="signup-email">Email</label>
+                </div>
+                <div class="col s12 m4 l2"></div>
+            </div>
+            <div class="row">
+                <div class="col s12 m4 l2"></div>
+                <div class="input-field col s12 m4 l8">
+                    <input required id="signup-password" type="text" name="signup-password" class="validate black-text">
+                    <label for="signup-password">Password</label>
+                </div>
+                <div class="col s12 m4 l2"></div>
+            </div>
+            <div class="row">
+                <div class="col s12 m4 l2"></div>
+                <div class="input-field col s12 m4 l8">
+                    <input required id="confirm-password" type="text" name="confirm-password" class="validate black-text">
+                    <label for="confirm-password">Confirm Password</label>
+                </div>
+                <div class="col s12 m4 l2"></div>
+            </div>
+            <div class="row center">
+                <input type="submit" id="signup-button" value="signup" class="btn-flat white-text waves-effect waves-light orange">
+            </div>
+        </form>
+    </div>
+</div>
