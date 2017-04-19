@@ -2,8 +2,8 @@ import sqlite3
 
 class Query:
     def __init__(self):
-        self.conn  = sqlite3.connect("app/data/class.db", check_same_thread=False) # if local
-        # self.conn = sqlite3.connect("class.db", check_same_thread=False) # if server
+        # self.conn  = sqlite3.connect("app/data/class.db", check_same_thread=False) # if local
+        self.conn = sqlite3.connect("class.db", check_same_thread=False) # if server
         self.cur = self.conn.cursor()
 
     # insert rating, post, review
@@ -143,3 +143,22 @@ class Query:
         print query
         # self.cur.execute(query)
         # self.conn.commit()
+
+    # Addtional query function for review analysis
+    def get_all_cids(self):
+        query = """SELECT CourseID, Name FROM Courses"""
+        # print query
+        self.cur.execute(query)
+        return self.cur.fetchall()
+
+    def get_text_reviews_cid(self, cid):
+        query = """SELECT Text FROM Reviews WHERE CourseId = {cid}""".format(cid=cid)
+        # print query
+        self.cur.execute(query)
+        return self.cur.fetchall()
+
+    def get_text_reviews_no_cid(self):
+        query = """SELECT Text FROM Reviews"""
+        # print query
+        self.cur.execute(query)
+        return self.cur.fetchall()
