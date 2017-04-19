@@ -39,5 +39,14 @@ def get_all_reviews_list():
     return reviews
 
 # Get a list of reviews course information
-# Require a course name as the parameter, e.g. CS 225
-# def get_all_reviews_list_cname(course_name):
+# Require a course id as the parameter, e.g. 2260 for CS 225
+def get_all_reviews_list_cid(cid):
+    reviews_raw = query.get_text_reviews_cid(cid)
+    reviews = []
+    for review in reviews_raw:
+        reviews.append(review[0])
+    return reviews
+
+# Testing
+# if __name__ == "__main__":
+#     print get_all_reviews_list_cid(2260)
