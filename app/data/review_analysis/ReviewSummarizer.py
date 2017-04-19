@@ -10,22 +10,20 @@ class ReviewSummarizer:
         self.wordcount=50
         self.reviews=reviews
 
-    def runSummaryAnalysis(self):
-
-
     def getSummarizedText(self):
         txt=' '.join(self.reviews)
-        return(summarize(text=txt,ratio=self.ratio,word_count=self.wordcount))
+        return summarize(text=txt,ratio=self.ratio,word_count=self.wordcount)
+
     def getKeyWords(self):
         txt = ' '.join(self.reviews)
         return(keywords(text=txt, ratio=self.ratio))
 
-if __name__== "__main__":
-    with open("mockdata.txt") as fp:
-        reviews = fp.readlines()
-    sumsr= ReviewSummarizer(reviews)
-    print(sumsr.getKeyWords())
-    print(sumsr.getSummarizedText())
+# if __name__== "__main__":
+#     with open("mockdata.txt") as fp:
+#         reviews = fp.readlines()
+#     sumsr= ReviewSummarizer(reviews)
+#     print(sumsr.getKeyWords())
+#     print(sumsr.getSummarizedText())
 
 
 
