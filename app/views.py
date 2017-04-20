@@ -40,6 +40,7 @@ def login():
     print "one"
     if auth:
         print "send message saying logged in"
+        session['loggenIn'] = "in"
     else:
         print "not logged in"
 
@@ -47,6 +48,32 @@ def login():
 
 def authenticate(user, passw):
     print "add code to check user and pass"
+    q = Query()
+    retL= q.check_auth(user,passw)
+    return (len(retL) != 0)
+
+@app.route('/signup', methods=['POST', 'GET'])
+def signup():
+    print "in signup"
+    user = request.form["signup-email"]
+    print "here1"
+    passw = request.form["signup-password"]
+    print "here2"
+    name = request.form["username"]
+    print "here3"
+
+    validNewUser = addUser(user, passw, name)
+
+    return render_template('landing.html')
+
+def addUser(user, passw, name):
+    print "adding new user"
+    q = Query()
+    retL = q.checkIfUserExist(user)
+    if len(retL) == 0:
+        q.ins_new_user(user, passw, name)
+    else:
+        print "user exists, send a toast message"
 
 @app.route('/comm', methods=['POST','GET'])
 def addCom():
