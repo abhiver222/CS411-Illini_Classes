@@ -1,8 +1,21 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 <script>
     $(document).ready(function(){
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        console.log("Ready and running");
         $('.modal').modal();
+        $SCRIPT_ROOT = {{request.script_root | tojson | safe}};
+        $('#login-button').bind('click', function(){
+            $.getJSON($SCRIPT_ROOT+'/ajaxLogin',{
+                login_email: $('input[name="login-email"]').val(),
+                login_password: $('input[name="login-password"]').val()
+            }, function(data){
+                console.log("Result of authenticating login: " + data.result);
+                Materialize.toast('Invalid email or password', 2000);
+            });
+            return false;
+        });
     });
+                
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>

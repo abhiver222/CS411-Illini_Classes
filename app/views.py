@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, session, flash, redirect, url_for
+from flask import render_template, request, session, flash, redirect, url_for, jsonify
 from app.data.query import Query
 
 @app.route('/')
@@ -43,8 +43,21 @@ def login():
         session['loggenIn'] = "in"
     else:
         print "not logged in"
+    return render_template('landing.html', )
 
-    return render_template('landing.html')
+@app.route('/ajaxLogin')
+def ajaxLogin():
+    user = request.args.get('login_email', 0 , type=str)
+    passw = request.args.get('login_password', 0, type=str)
+    print "Using Ajax Login"
+    auth = authenticate(user, passw)
+    if auth:
+        print "Ajax Login successful"
+        session['loggedIn'] = "in"
+        return jsonify(result=True)
+    print "Ajax Login unsuccessful"
+    return jsonify(result=False)
+
 
 def authenticate(user, passw):
     print "add code to check user and pass"
