@@ -37,7 +37,7 @@ def login():
     passw = request.form['login-password']
 
     auth = authenticate(user, passw)
-    print "one"
+
     if auth:
         print "send message saying logged in"
         session['loggenIn'] = "in"
@@ -61,6 +61,8 @@ def ajaxLogin():
 
 def authenticate(user, passw):
     print "add code to check user and pass"
+    print user
+    print passw
     q = Query()
     retL= q.check_auth(user,passw)
     return (len(retL) != 0)
@@ -69,12 +71,10 @@ def authenticate(user, passw):
 def signup():
     print "in signup"
     user = request.form["signup-email"]
-    print "here1"
-    passw = request.form["signup-password"]
-    print "here2"
-    name = request.form["username"]
-    print "here3"
 
+    passw = request.form["signup-password"]
+
+    name = request.form["username"]
     validNewUser = addUser(user, passw, name)
 
     return render_template('landing.html')
