@@ -12,7 +12,9 @@
                 login_password: $('input[name="login-password"]').val()
             }, function(data){
                 console.log("Result of authenticating login: " + data.result);
-                Materialize.toast('Invalid email or password', 2000);
+                if(data.result == false){
+                    Materialize.toast('Invalid email or password', 2000);
+                }
             });
             return false;
         });
