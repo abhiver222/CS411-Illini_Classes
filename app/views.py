@@ -1,6 +1,7 @@
 from app import app
 from flask import render_template, request, session, flash, redirect, url_for, jsonify
 from app.data.query import Query
+from app.data.review_analysis.ReviewSummarizer import *
 
 @app.route('/')
 @app.route('/index')
@@ -19,12 +20,16 @@ def search():
     courses = query.getCourseInfoByName(name)
     cid = courses[0][0]
     reviews = query.getReviewsByCid(cid)
+    revList = [r[5] for r in reviews]
+    print revList
+    combinedRev = ReviewSummarizer(revList).getSummarizedText()
+
     try:
         stat = roundVals(query.get_stats(cid)[0])
     except Exception:
         stat = 0
     if request.method == 'POST':
-        return render_template('course.html', course=courses[0], revs=reviews, stat=stat)
+        return render_template('course.html', course=courses[0], revs=reviews, stat=stat, combRev=combinedRev)
     return "what"
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -119,7 +124,7 @@ def update():
     cid = request.args.get('cid')
     rev = []
     if request.method == 'GET':
-        postId = request.args.get('postId')
+        postId = request.args.get('cid')
         rev = query.getReviewsByCid(postId)
         print postId
         print rev

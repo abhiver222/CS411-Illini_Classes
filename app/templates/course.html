@@ -52,6 +52,21 @@
         <a href="{{ url_for('addCom', courseId=course[0]) }}">Add a New Comment</a>
     </div>
 
+    <br/><br/>
+
+    <div class="row center">
+        <div class="col s12 m3 l2"></div>
+        <div class="col s12 m6 l8">
+            <div class="card-panel teal">
+              <span class="white-text">
+                  <h5>{{ combRev }}</h5>
+              </span>
+            </div>
+        </div>
+    </div>
+
+    <br/><br/>
+
     {% for review in revs %}
 
 
