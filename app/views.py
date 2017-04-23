@@ -11,7 +11,9 @@ def index():
     route renders the landing page
     """
     print " in index "
-    return render_template('landing.html')
+    if "loggedIn" in session and session['loggedIn'] == "in":
+        return render_template('landing.html', loggedIn = 1)
+    return render_template('landing.html', loggedIn = 0)
 
 @app.route('/', methods=['POST','GET'])
 def search():
@@ -55,19 +57,11 @@ def tagRevs(reviews, tags):
 def login():
     print "in login"
     if "loggedIn" in session and session['loggedIn'] == "in":
-        print "already logged in"
-
-    user = request.form['login-email']
-    passw = request.form['login-password']
-
-    auth = authenticate(user, passw)
-
-    if auth:
-        print "send message saying logged in"
-        session['loggenIn'] = "in"
+        print("Is Logged In")
+        return render_template('landing.html', loggedIn = 1)
     else:
         print "not logged in"
-    return render_template('landing.html', )
+        return render_template('landing.html', loggedIn = 0)
 
 @app.route('/ajaxLogin')
 def ajaxLogin():
@@ -82,13 +76,13 @@ def ajaxLogin():
     print "Ajax Login unsuccessful"
     return jsonify(result=False)
 
-
 def authenticate(user, passw):
     print "add code to check user and pass"
     print user
     print passw
     q = Query()
     retL= q.check_auth(user,passw)
+    print(retL)
     return (len(retL) != 0)
 
 @app.route('/signup', methods=['POST', 'GET'])
