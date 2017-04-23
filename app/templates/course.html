@@ -59,6 +59,7 @@
         <div class="col s12 m6 l8">
             <div class="card-panel teal">
               <span class="white-text">
+                  Course Review
                   <h5>{{ combRev }}</h5>
               </span>
             </div>
@@ -67,33 +68,126 @@
 
     <br/><br/>
 
-    {% for review in revs %}
-
-
-    <div class="row center">
-      <div class="col s12 m3 l2"></div>
-      <div class="col s12 m6 l8">
-        <div class="card-panel teal">
-          <span class="white-text">
-              <h5>Reviewer : {{ review[1] }}</h5>
-              <p>{{ review[5] }}</p>
-              <h6>Toughness : {{ review[2] }}</h6>
-              <h6>Workload : {{ review[3] }}</h6>
-              <h6>Rating : {{ review[4] }}</h6>
-          </span>
+    <div class="row">
+        <div class="col s12">
+          <ul class="tabs">
+            <li class="tab col s3"><a href="#positive" class="active">Positive &nbsp; ({{taggedRevs["positive"]|length}})</a></li>
+            <li class="tab col s3"><a href="#negative">Negative &nbsp; ({{taggedRevs["negative"]|length}})</a></li>
+            <li class="tab col s3"><a href="#neutral">Neutral &nbsp; ({{taggedRevs["neutral"]|length}})</a></li>
+            <li class="tab col s3"><a href="#allRev">All &nbsp; ({{revs|length}})</a></li>
+          </ul>
         </div>
-          <div>
-            <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
-            <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
-          </div>
-      </div>
-      <div class="col s12 m3 l2">
-      </div>
+
+        <div id="positive" class="col s12">
+            {% for review in taggedRevs["positive"] %}
+
+            <div class="row center">
+              <div class="col s12 m3 l2"></div>
+              <div class="col s12 m6 l8">
+                <div class="card-panel teal">
+                  <span class="white-text">
+                      <h5>Reviewer : {{ review[1] }}</h5>
+                      <p>{{ review[5] }}</p>
+                      <h6>Toughness : {{ review[2] }}</h6>
+                      <h6>Workload : {{ review[3] }}</h6>
+                      <h6>Rating : {{ review[4] }}</h6>
+                  </span>
+                </div>
+                  <div>
+                    <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
+                    <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
+                  </div>
+              </div>
+              <div class="col s12 m3 l2">
+              </div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <div id="negative" class="col s12">
+            {% for review in taggedRevs["negative"] %}
+
+            <div class="row center">
+              <div class="col s12 m3 l2"></div>
+              <div class="col s12 m6 l8">
+                <div class="card-panel teal">
+                  <span class="white-text">
+                      <h5>Reviewer : {{ review[1] }}</h5>
+                      <p>{{ review[5] }}</p>
+                      <h6>Toughness : {{ review[2] }}</h6>
+                      <h6>Workload : {{ review[3] }}</h6>
+                      <h6>Rating : {{ review[4] }}</h6>
+                  </span>
+                </div>
+                  <div>
+                    <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
+                    <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
+                  </div>
+              </div>
+              <div class="col s12 m3 l2">
+              </div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <div id="neutral" class="col s12">
+            {% for review in taggedRevs["neutral"] %}
+
+            <div class="row center">
+              <div class="col s12 m3 l2"></div>
+              <div class="col s12 m6 l8">
+                <div class="card-panel teal">
+                  <span class="white-text">
+                      <h5>Reviewer : {{ review[1] }}</h5>
+                      <p>{{ review[5] }}</p>
+                      <h6>Toughness : {{ review[2] }}</h6>
+                      <h6>Workload : {{ review[3] }}</h6>
+                      <h6>Rating : {{ review[4] }}</h6>
+                  </span>
+                </div>
+                  <div>
+                    <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
+                    <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
+                  </div>
+              </div>
+              <div class="col s12 m3 l2">
+              </div>
+            </div>
+
+            {% endfor %}
+        </div>
+        <div id="allRev" class="col s12">
+            {% for review in revs %}
+
+            <div class="row center">
+              <div class="col s12 m3 l2"></div>
+              <div class="col s12 m6 l8">
+                <div class="card-panel teal">
+                  <span class="white-text">
+                      <h5>Reviewer : {{ review[1] }}</h5>
+                      <p>{{ review[5] }}</p>
+                      <h6>Toughness : {{ review[2] }}</h6>
+                      <h6>Workload : {{ review[3] }}</h6>
+                      <h6>Rating : {{ review[4] }}</h6>
+                  </span>
+                </div>
+                  <div>
+                    <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
+                    <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
+                  </div>
+              </div>
+              <div class="col s12 m3 l2">
+              </div>
+            </div>
+
+            {% endfor %}
+        </div>
     </div>
 
-        {% endfor %}
+    </div>
     <div id="forum">forum</div>
-
     {% include 'foot.html' %}
 
 </body>

@@ -22,18 +22,34 @@ def search():
     cid = courses[0][0]
     reviews = query.getReviewsByCid(cid)
     revList = [r[5] for r in reviews]
-    print revList
+    if len(revList) == 0:
+        revList.append("")
+    # print revList
     combinedRev = ReviewSummarizer(revList).getSummarizedText()
     revTags = SentimentAnalyser(revList).senti_pretrained()
-    print revTags
+    # print revTags
 
     try:
         stat = roundVals(query.get_stats(cid)[0])
     except Exception:
         stat = 0
+
     if request.method == 'POST':
-        return render_template('course.html', course=courses[0], revs=reviews, stat=stat, combRev=combinedRev)
+        print reviews
+        taggedRevs = tagRevs(reviews,revTags)
+        return render_template('course.html', course=courses[0], revs=reviews, stat=stat,
+                               combRev=combinedRev, taggedRevs=taggedRevs)
     return "what"
+
+def tagRevs(reviews, tags):
+    retRev = {}
+    retRev["positive"] = []
+    retRev["negative"] = []
+    retRev["neutral"]  = []
+    for i in range(0,len(tags)):
+        retRev[tags[i]].append(reviews[i])
+    return retRev
+
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
