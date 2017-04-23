@@ -4,16 +4,18 @@ from app.data.query import Query
 from app.data.review_analysis.ReviewSummarizer import *
 from app.data.review_analysis.SentimentAnalyser import *
 
+def checkLoggedIn():
+    if "loggedIn" in session and session['loggedIn'] == "in":
+        return 1
+    return 0
+
 @app.route('/')
 @app.route('/index')
 def index():
     """
     route renders the landing page
     """
-    print " in index "
-    if "loggedIn" in session and session['loggedIn'] == "in":
-        return render_template('landing.html', loggedIn = 1)
-    return render_template('landing.html', loggedIn = 0)
+    return render_template('landing.html', loggedIn = checkLoggedIn())
 
 @app.route('/', methods=['POST','GET'])
 def search():
@@ -40,7 +42,7 @@ def search():
         print reviews
         taggedRevs = tagRevs(reviews,revTags)
         return render_template('course.html', course=courses[0], revs=reviews, stat=stat,
-                               combRev=combinedRev, taggedRevs=taggedRevs)
+                               combRev=combinedRev, taggedRevs=taggedRevs, loggedIn = checkLoggedIn())
     return "what"
 
 def tagRevs(reviews, tags):
@@ -52,16 +54,6 @@ def tagRevs(reviews, tags):
         retRev[tags[i]].append(reviews[i])
     return retRev
 
-
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    print "in login"
-    if "loggedIn" in session and session['loggedIn'] == "in":
-        print("Is Logged In")
-        return render_template('landing.html', loggedIn = 1)
-    else:
-        print "not logged in"
-        return render_template('landing.html', loggedIn = 0)
 
 @app.route('/ajaxLogin')
 def ajaxLogin():
@@ -75,6 +67,12 @@ def ajaxLogin():
         return jsonify(result=True)
     print "Ajax Login unsuccessful"
     return jsonify(result=False)
+
+@app.route('/logout')
+def logout():
+    session['loggedIn'] = None
+    return redirect(url_for('index'))
+
 
 def authenticate(user, passw):
     print "add code to check user and pass"
@@ -95,7 +93,7 @@ def signup():
     name = request.form["username"]
     validNewUser = addUser(user, passw, name)
 
-    return render_template('landing.html')
+    return render_template('landing.html', loggedIn = checkLoggedIn())
 
 def addUser(user, passw, name):
     print "adding new user"
@@ -129,9 +127,9 @@ def addCom():
         combinedRev = ReviewSummarizer(revList).getSummarizedText()
         revTags = SentimentAnalyser(revList).senti_pretrained()
 
-        return render_template('course.html', course=course[0], revs=reviews, stat=stat, combRev=combinedRev)
+        return render_template('course.html', course=course[0], revs=reviews, stat=stat, combRev=combinedRev, loggedIn = checkLoggedIn())
 
-    return render_template('comment.html', type='com', cid=cid)
+    return render_template('comment.html', type='com', cid=cid, loggedIn = checkLoggedIn())
 
 @app.route('/update', methods=['POST','GET'])
 def update():
@@ -160,11 +158,11 @@ def update():
         course = query.getCourseInfoByCid(cid2)
         stat = roundVals(query.get_stats(cid2)[0])
 
-        return render_template('course.html', course=course[0], revs=reviews, stat=stat)
+        return render_template('course.html', course=course[0], revs=reviews, stat=stat, loggedIn = checkLoggedIn())
 
     if len(rev) <= 0:
         rev = [""]
-    return render_template('comment.html', type='up', cid=cid, rev=rev[0], revid=postId)
+    return render_template('comment.html', type='up', cid=cid, rev=rev[0], revid=postId, loggedIn = checkLoggedIn())
 
 @app.route('/delete', methods=['POST','GET'])
 def delete():
@@ -178,7 +176,7 @@ def delete():
     courses = query.getCourseInfoByCid(cid)
     stat = roundVals(query.get_stats(cid)[0])
 
-    return render_template('course.html', course=courses[0], revs=reviews, stat=stat)
+    return render_template('course.html', course=courses[0], revs=reviews, stat=stat, loggedIn = checkLoggedIn())
 
 def roundVals(tup):
     return tuple(round(itup,1) for itup in tup)

@@ -16,10 +16,13 @@
                     Materialize.toast('Invalid email or password', 2000);
                 }
                 else{
-                    window.location.href=$SCRIPT_ROOT + '/login';
+                    window.location.href=$SCRIPT_ROOT;
                 }
             });
             return false;
+        });
+        $('#logout-button').click(function(){
+            window.location.href=$SCRIPT_ROOT+'/logout';
         });
     });
                 
