@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, session, flash, redirect, url_for, jsonify
 from app.data.query import Query
 from app.data.review_analysis.ReviewSummarizer import *
+from app.data.review_analysis.SentimentAnalyser import *
 
 @app.route('/')
 @app.route('/index')
@@ -23,6 +24,8 @@ def search():
     revList = [r[5] for r in reviews]
     print revList
     combinedRev = ReviewSummarizer(revList).getSummarizedText()
+    revTags = SentimentAnalyser(revList).senti_pretrained()
+    print revTags
 
     try:
         stat = roundVals(query.get_stats(cid)[0])
@@ -110,8 +113,13 @@ def addCom():
         course = query.getCourseInfoByCid(cid2)
         stat = roundVals(query.get_stats(cid2)[0])
         print stat
+        reviews = query.getReviewsByCid(cid2)
+        revList = [r[5] for r in reviews]
+        print revList
+        combinedRev = ReviewSummarizer(revList).getSummarizedText()
+        revTags = SentimentAnalyser(revList).senti_pretrained()
 
-        return render_template('course.html', course=course[0], revs=reviews, stat=stat)
+        return render_template('course.html', course=course[0], revs=reviews, stat=stat, combRev=combinedRev)
 
     return render_template('comment.html', type='com', cid=cid)
 
