@@ -4,23 +4,13 @@ from app.data.query import Query
 from app.data.review_analysis.ReviewSummarizer import *
 from app.data.review_analysis.SentimentAnalyser import *
 
-def checkLoggedIn():
-    login_results = {}
-    if "loggedIn" in session and session['loggedIn'] == "in":
-        login_results['loggedIn'] = 1
-        login_results['email'] = session['email']
-        login_results['username'] = session['username']
-    else:
-        login_results['loggedIn'] = 0
-    return login_results
-
 @app.route('/')
 @app.route('/index')
 def index():
     """
     route renders the landing page
     """
-    return render_template('landing.html', results = checkLoggedIn())
+    return render_template('landing.html', session = session)
 
 @app.route('/', methods=['POST','GET'])
 def search():
@@ -47,7 +37,7 @@ def search():
         print reviews
         taggedRevs = tagRevs(reviews,revTags)
         return render_template('course.html', course=courses[0], revs=reviews, stat=stat,
-                               combRev=combinedRev, taggedRevs=taggedRevs, results = checkLoggedIn())
+                               combRev=combinedRev, taggedRevs=taggedRevs, session = session)
     return "what"
 
 def tagRevs(reviews, tags):
@@ -68,7 +58,7 @@ def ajaxLogin():
     auth = authenticate(user, passw)
     if auth:
         print "Ajax Login successful"
-        session['loggedIn'] = "in"
+        session['loggedIn'] = 1
         session['email'] = user
         session['username'] = auth[0][2]
         return jsonify(result=True)
@@ -77,7 +67,7 @@ def ajaxLogin():
 
 @app.route('/logout')
 def logout():
-    session['loggedIn'] = None
+    session['loggedIn'] = 0
     return redirect(url_for('index'))
 
 
@@ -100,7 +90,7 @@ def signup():
     name = request.form["username"]
     validNewUser = addUser(user, passw, name)
 
-    return render_template('landing.html', results = checkLoggedIn())
+    return render_template('landing.html', session = session)
 
 def addUser(user, passw, name):
     print "adding new user"
@@ -134,9 +124,9 @@ def addCom():
         combinedRev = ReviewSummarizer(revList).getSummarizedText()
         revTags = SentimentAnalyser(revList).senti_pretrained()
 
-        return render_template('course.html', course=course[0], revs=reviews, stat=stat, combRev=combinedRev, results= checkLoggedIn())
+        return render_template('course.html', course=course[0], revs=reviews, stat=stat, combRev=combinedRev, session = session)
 
-    return render_template('comment.html', type='com', cid=cid, results = checkLoggedIn())
+    return render_template('comment.html', type='com', cid=cid, session = session)
 
 @app.route('/update', methods=['POST','GET'])
 def update():
@@ -165,11 +155,11 @@ def update():
         course = query.getCourseInfoByCid(cid2)
         stat = roundVals(query.get_stats(cid2)[0])
 
-        return render_template('course.html', course=course[0], revs=reviews, stat=stat, results = checkLoggedIn())
+        return render_template('course.html', course=course[0], revs=reviews, stat=stat, session = session)
 
     if len(rev) <= 0:
         rev = [""]
-    return render_template('comment.html', type='up', cid=cid, rev=rev[0], revid=postId, results = checkLoggedIn())
+    return render_template('comment.html', type='up', cid=cid, rev=rev[0], revid=postId, session = session)
 
 @app.route('/delete', methods=['POST','GET'])
 def delete():
@@ -183,7 +173,7 @@ def delete():
     courses = query.getCourseInfoByCid(cid)
     stat = roundVals(query.get_stats(cid)[0])
 
-    return render_template('course.html', course=courses[0], revs=reviews, stat=stat, results = checkLoggedIn())
+    return render_template('course.html', course=courses[0], revs=reviews, stat=stat, session = session)
 
 def roundVals(tup):
     return tuple(round(itup,1) for itup in tup)
