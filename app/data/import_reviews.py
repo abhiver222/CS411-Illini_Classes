@@ -30,10 +30,6 @@ def import_review(query):
         workload = randint(1,5)
         rating = randint(1,10)
 
-        print doc['review']
-        print cid
-        print course_names[cid_idx]
-
         try:
             query.ins_review_replWrd(email, toughness, workload, rating,
                                  doc['review'], cid,"fuck","fudge")
