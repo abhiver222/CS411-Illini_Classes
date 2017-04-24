@@ -116,7 +116,7 @@ def addCom():
         query = Query()
         cid2 = request.form['cid']
 
-        query.ins_review_replWrd("temp@illinois.edu", request.form['toughness'], request.form['work'], request.form['rating'],
+        query.ins_review_replWrd(session['email'], request.form['toughness'], request.form['work'], request.form['rating'],
                                  request.form['rev'], cid2,"fuck","fudge")
 
         reviews = query.getReviewsByCid(cid2)

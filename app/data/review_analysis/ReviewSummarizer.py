@@ -16,7 +16,13 @@ class ReviewSummarizer:
 
         if len(self.reviews) == 0 or len(self.reviews) == 1:
             return " "
-        return summarize(text=txt,ratio=self.ratio,word_count=self.wordcount)
+        # if len(txt) < 500:
+        #     return txt
+        try:
+            summary = summarize(text=txt,ratio=self.ratio,word_count=self.wordcount)
+        except:
+            summary = txt
+        return summary
 
     def getKeyWords(self):
         txt = ' '.join(self.reviews)
