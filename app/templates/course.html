@@ -23,9 +23,11 @@
         <div class="col s12 m3 l2"></div>
     </div>
 
+    {% if session['loggedIn'] == 1 %}
     <div class="center">
         <a href="{{ url_for('addCom', courseId=course[0]) }}">Add a New Comment</a>
     </div>
+    {% endif %}
 
     <br/><br/>
 
