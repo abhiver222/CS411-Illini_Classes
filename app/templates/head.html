@@ -7,7 +7,7 @@
         console.log('{{loggedIn}}')
     </script>
 <div class="nav-wrapper container">
-    <a id="logo-container" href="#" class="brand-logo">Home</a>
+    <a id="logo-container" href="{{ url_for('index') }}" class="brand-logo">Home</a>
     {% if not session.loggedIn%}
     <ul id="login-nav"class="right">
         <li><a href="#login-modal">Login</a></li>
