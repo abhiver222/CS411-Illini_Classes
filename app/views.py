@@ -31,12 +31,16 @@ def search():
     try:
         stat = roundVals(query.get_stats(cid)[0])
     except Exception:
-        stat = 0
-
+        stat = (0,0,0)
+    
     print reviews
 
     if request.method == 'POST':
-        taggedRevs = tagRevs(reviews,revTags)
+
+        if len(reviews) != 0 and len(revTags) !=0:
+            taggedRevs = tagRevs(reviews,revTags)
+        else:
+            taggedRevs = tagRevs(reviews,[])
         return render_template('course.html', course=courses[0], revs=reviews, stat=stat,
                                combRev=combinedRev, taggedRevs=taggedRevs, session = session)
     return "what"
