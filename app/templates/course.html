@@ -15,11 +15,8 @@
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
                 <h1 class="header  orange-text">{{ course[2] }}</h1>
-              <span class="card-title">Course Information</span>
               <p>{{course[1]}}</p>
-                <h6>Avg Toughness : {{stat[0]}}</h6>
-                <h6>Avg Rating : {{stat[1]}}</h6>
-                <h6>Avg Workload : {{stat[2]}}</h6>
+              <br />
             </div>
           </div>
         </div>
@@ -32,13 +29,19 @@
 
     <br/><br/>
 
-    <div class="row center">
+    <div class="row">
         <div class="col s12 m3 l2"></div>
         <div class="col s12 m6 l8">
             <div class="card-panel teal">
               <span class="white-text">
-                  <h5>Review Summary</h5>
+                  <span align="center"><h5>Review Summary</h5></span>
                   <h6>{{ combRev }}</h6>
+                  <div>
+                      
+                  </div>
+                  <h6>Avg Toughness : {{stat[0]}}</h6>
+                  <h6>Avg Rating : {{stat[1]}}</h6>
+                  <h6>Avg Workload : {{stat[2]}}</h6>
               </span>
             </div>
         </div>
