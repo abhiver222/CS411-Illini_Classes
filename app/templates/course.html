@@ -7,45 +7,23 @@
 <body>
     <br/>
     <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-
-        <h1 class="header center orange-text">{{ course[2] }}</h1>
-      <div class="row center">
-
-      </div>
-
-      <br><br>
-
-
-    </div>
-    </div>
-
-    <div class="row center">
-        <div class="col s12  m3 l3"></div>
-        <div class="col s12 m6 l6">
-            <ul class="tabs">
-                <li class="tab col s6 m6 l6"><a class="active" href="#info">Info</a></li>
-                <li class="tab col s6 m6 l6"><a href="#forum">Forum</a></li>
-            </ul>
-        </div>
-        <div class="col s12 m3 l3"></div>
-    </div>
-
 
     <div class="col s12" id="info">
-    <div class="row center">
-        <div class="col s12 m6 offset-m3">
+    <div class="row ">
+        <div class="col s12 m3 l2"></div>
+        <div class="col s12 m6 l8">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
+                <h1 class="header  orange-text">{{ course[2] }}</h1>
               <span class="card-title">Course Information</span>
               <p>{{course[1]}}</p>
-                <h5>Avg Toughness : {{stat[0]}}</h5>
-                <h5>Avg Rating : {{stat[1]}}</h5>
-                <h5>Avg Workload : {{stat[2]}}</h5>
+                <h6>Avg Toughness : {{stat[0]}}</h6>
+                <h6>Avg Rating : {{stat[1]}}</h6>
+                <h6>Avg Workload : {{stat[2]}}</h6>
             </div>
           </div>
         </div>
+        <div class="col s12 m3 l2"></div>
     </div>
 
     <div class="center">
@@ -59,8 +37,8 @@
         <div class="col s12 m6 l8">
             <div class="card-panel teal">
               <span class="white-text">
-                  Course Review
-                  <h5>{{ combRev }}</h5>
+                  <h5>Review Summary</h5>
+                  <h6>{{ combRev }}</h6>
               </span>
             </div>
         </div>
@@ -69,24 +47,26 @@
     <br/><br/>
 
     <div class="row">
-        <div class="col s12">
+        <div class="col s12 m3 l2"></div>
+        <div class="col s12 m6 l8">
           <ul class="tabs">
-            <li class="tab col s3"><a href="#positive" class="active">Positive &nbsp; ({{taggedRevs["positive"]|length}})</a></li>
+              <li class="tab col s3"><a href="#allRev" class="active">All &nbsp; ({{revs|length}})</a></li>
+            <li class="tab col s3"><a href="#positive" >Positive &nbsp; ({{taggedRevs["positive"]|length}})</a></li>
             <li class="tab col s3"><a href="#negative">Negative &nbsp; ({{taggedRevs["negative"]|length}})</a></li>
             <li class="tab col s3"><a href="#neutral">Neutral &nbsp; ({{taggedRevs["neutral"]|length}})</a></li>
-            <li class="tab col s3"><a href="#allRev">All &nbsp; ({{revs|length}})</a></li>
           </ul>
         </div>
+        <div class="col s12 m3 l2"></div>
 
         <div id="positive" class="col s12">
             {% for review in taggedRevs["positive"] %}
 
-            <div class="row center">
+            <div class="row ">
               <div class="col s12 m3 l2"></div>
               <div class="col s12 m6 l8">
                 <div class="card-panel teal">
                   <span class="white-text">
-                      <h5>Reviewer : {{ review[1] }}</h5>
+                      <h6>Reviewer : {{ review[1] }}</h6>
                       <p>{{ review[5] }}</p>
                       <h6>Toughness : {{ review[2] }}</h6>
                       <h6>Workload : {{ review[3] }}</h6>
@@ -108,12 +88,12 @@
         <div id="negative" class="col s12">
             {% for review in taggedRevs["negative"] %}
 
-            <div class="row center">
+            <div class="row ">
               <div class="col s12 m3 l2"></div>
               <div class="col s12 m6 l8">
                 <div class="card-panel teal">
                   <span class="white-text">
-                      <h5>Reviewer : {{ review[1] }}</h5>
+                      <h6>Reviewer : {{ review[1] }}</h6>
                       <p>{{ review[5] }}</p>
                       <h6>Toughness : {{ review[2] }}</h6>
                       <h6>Workload : {{ review[3] }}</h6>
@@ -135,12 +115,12 @@
         <div id="neutral" class="col s12">
             {% for review in taggedRevs["neutral"] %}
 
-            <div class="row center">
+            <div class="row ">
               <div class="col s12 m3 l2"></div>
               <div class="col s12 m6 l8">
                 <div class="card-panel teal">
                   <span class="white-text">
-                      <h5>Reviewer : {{ review[1] }}</h5>
+                      <h6>Reviewer : {{ review[1] }}</h6>
                       <p>{{ review[5] }}</p>
                       <h6>Toughness : {{ review[2] }}</h6>
                       <h6>Workload : {{ review[3] }}</h6>
@@ -161,12 +141,12 @@
         <div id="allRev" class="col s12">
             {% for review in revs %}
 
-            <div class="row center">
+            <div class="row ">
               <div class="col s12 m3 l2"></div>
               <div class="col s12 m6 l8">
                 <div class="card-panel teal">
                   <span class="white-text">
-                      <h5>Reviewer : {{ review[1] }}</h5>
+                      <h6>Reviewer : {{ review[1] }}</h6>
                       <p>{{ review[5] }}</p>
                       <h6>Toughness : {{ review[2] }}</h6>
                       <h6>Workload : {{ review[3] }}</h6>
@@ -187,7 +167,6 @@
     </div>
 
     </div>
-    <div id="forum">forum</div>
     {% include 'foot.html' %}
 
 </body>
