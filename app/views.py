@@ -33,8 +33,9 @@ def search():
     except Exception:
         stat = 0
 
+    print reviews
+
     if request.method == 'POST':
-        print reviews
         taggedRevs = tagRevs(reviews,revTags)
         return render_template('course.html', course=courses[0], revs=reviews, stat=stat,
                                combRev=combinedRev, taggedRevs=taggedRevs, session = session)
@@ -117,14 +118,14 @@ def addCom():
         reviews = query.getReviewsByCid(cid2)
         course = query.getCourseInfoByCid(cid2)
         stat = roundVals(query.get_stats(cid2)[0])
-        print stat
-        reviews = query.getReviewsByCid(cid2)
+
+        # reviews = query.getReviewsByCid(cid2)
         revList = [r[5] for r in reviews]
-        print revList
         combinedRev = ReviewSummarizer(revList).getSummarizedText()
         revTags = SentimentAnalyser(revList).senti_pretrained()
-
-        return render_template('course.html', course=course[0], revs=reviews, stat=stat, combRev=combinedRev, session = session)
+        taggedRevs = tagRevs(reviews, revTags)
+        return render_template('course.html', course=course[0], revs=reviews, stat=stat,
+                               combRev=combinedRev, session = session, taggedRevs=taggedRevs)
 
     return render_template('comment.html', type='com', cid=cid, session = session)
 
@@ -136,9 +137,10 @@ def update():
 
     cid = request.args.get('cid')
     rev = []
+
     if request.method == 'GET':
-        postId = request.args.get('cid')
-        rev = query.getReviewsByCid(postId)
+        postId = request.args.get('postId')
+        rev = query.getReviewById(postId)
         print postId
         print rev
 
@@ -155,7 +157,13 @@ def update():
         course = query.getCourseInfoByCid(cid2)
         stat = roundVals(query.get_stats(cid2)[0])
 
-        return render_template('course.html', course=course[0], revs=reviews, stat=stat, session = session)
+        revList = [r[5] for r in reviews]
+        combinedRev = ReviewSummarizer(revList).getSummarizedText()
+        revTags = SentimentAnalyser(revList).senti_pretrained()
+        taggedRevs = tagRevs(reviews, revTags)
+
+        return render_template('course.html', course=course[0], revs=reviews, stat=stat,
+                               session = session, combRev=combinedRev, taggedRevs=taggedRevs)
 
     if len(rev) <= 0:
         rev = [""]
@@ -173,7 +181,13 @@ def delete():
     courses = query.getCourseInfoByCid(cid)
     stat = roundVals(query.get_stats(cid)[0])
 
-    return render_template('course.html', course=courses[0], revs=reviews, stat=stat, session = session)
+    revList = [r[5] for r in reviews]
+    combinedRev = ReviewSummarizer(revList).getSummarizedText()
+    revTags = SentimentAnalyser(revList).senti_pretrained()
+    taggedRevs = tagRevs(reviews, revTags)
+
+    return render_template('course.html', course=courses[0], revs=reviews, stat=stat,
+                           session = session, combRev=combinedRev, taggedRevs=taggedRevs)
 
 def roundVals(tup):
     return tuple(round(itup,1) for itup in tup)

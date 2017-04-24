@@ -78,10 +78,12 @@
                       <h6>Rating : {{ review[4] }}</h6>
                   </span>
                 </div>
+                  {% if session['loggedIn'] == 1 %}
                   <div>
                     <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
                     <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
                   </div>
+                  {% endif %}
               </div>
               <div class="col s12 m3 l2">
               </div>
@@ -105,10 +107,12 @@
                       <h6>Rating : {{ review[4] }}</h6>
                   </span>
                 </div>
+                  {% if session['loggedIn'] == 1 %}
                   <div>
                     <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
                     <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
                   </div>
+                  {% endif %}
               </div>
               <div class="col s12 m3 l2">
               </div>
@@ -132,10 +136,12 @@
                       <h6>Rating : {{ review[4] }}</h6>
                   </span>
                 </div>
+                  {% if session['loggedIn'] == 1 %}
                   <div>
                     <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
                     <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
                   </div>
+                  {% endif %}
               </div>
               <div class="col s12 m3 l2">
               </div>
@@ -158,10 +164,12 @@
                       <h6>Rating : {{ review[4] }}</h6>
                   </span>
                 </div>
+                  {% if session['loggedIn'] == 1 %}
                   <div>
                     <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
                     <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
                   </div>
+                  {% endif %}
               </div>
               <div class="col s12 m3 l2">
               </div>
