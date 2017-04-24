@@ -12,6 +12,10 @@ class ReviewSummarizer:
 
     def getSummarizedText(self):
         txt=' '.join(self.reviews)
+        print self.reviews
+
+        if len(self.reviews) == 0 or len(self.reviews) == 1:
+            return " "
         return summarize(text=txt,ratio=self.ratio,word_count=self.wordcount)
 
     def getKeyWords(self):

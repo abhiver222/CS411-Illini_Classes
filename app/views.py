@@ -32,7 +32,7 @@ def search():
         stat = roundVals(query.get_stats(cid)[0])
     except Exception:
         stat = (0,0,0)
-    
+
     print reviews
 
     if request.method == 'POST':
