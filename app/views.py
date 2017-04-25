@@ -50,7 +50,7 @@ def tagRevs(reviews, tags):
     retRev["positive"] = []
     retRev["negative"] = []
     retRev["neutral"]  = []
-    for i in range(0,len(tags)):
+    for i in range(0,min(len(tags),len(reviews))):
         retRev[tags[i]].append(reviews[i])
     return retRev
 
