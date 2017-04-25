@@ -94,7 +94,10 @@ def signup():
 
     name = request.form["username"]
     validNewUser = addUser(user, passw, name)
-
+    if validNewUser:
+        session['loggedIn'] = 1
+        session['email'] = user
+        session['username'] = name
     return render_template('landing.html', session = session)
 
 def addUser(user, passw, name):
@@ -103,8 +106,9 @@ def addUser(user, passw, name):
     retL = q.checkIfUserExist(user)
     if len(retL) == 0:
         q.ins_new_user(user, passw, name)
-    else:
-        print "user exists, send a toast message"
+        return True
+    return False
+
 
 @app.route('/comm', methods=['POST','GET'])
 def addCom():
