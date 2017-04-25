@@ -78,7 +78,7 @@
                       <h6>Rating : {{ review[4] }}</h6>
                   </span>
                 </div>
-                  {% if session['loggedIn'] == 1 %}
+                  {% if session['loggedIn'] == 1 and session['email'] == review[1] %}
                   <div>
                     <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
                     <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
@@ -107,7 +107,7 @@
                       <h6>Rating : {{ review[4] }}</h6>
                   </span>
                 </div>
-                  {% if session['loggedIn'] == 1 %}
+                  {% if session['loggedIn'] == 1 and session['email'] == review[1] %}
                   <div>
                     <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
                     <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
@@ -136,7 +136,7 @@
                       <h6>Rating : {{ review[4] }}</h6>
                   </span>
                 </div>
-                  {% if session['loggedIn'] == 1 %}
+                  {% if session['loggedIn'] == 1 and session['email'] == review[1] %}
                   <div>
                     <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
                     <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
@@ -164,7 +164,7 @@
                       <h6>Rating : {{ review[4] }}</h6>
                   </span>
                 </div>
-                  {% if session['loggedIn'] == 1 %}
+                  {% if session['loggedIn'] == 1 and session['email'] == review[1] %}
                   <div>
                     <a href="{{ url_for('update', postId=review[0], cid=course[0]) }}">Update &nbsp;&nbsp;</a>
                     <a href="{{ url_for('delete', postId=review[0], cid=course[0]) }}">Delete</a>
